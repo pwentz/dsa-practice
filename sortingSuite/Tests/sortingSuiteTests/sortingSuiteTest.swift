@@ -22,4 +22,10 @@ class sortingSuiteTests: XCTestCase {
   func testInsertionSort() {
     XCTAssertEqual(shortResult, insertionSort(shortList))
   }
+
+  func testQuickSort() {
+    var newList = medList
+    quicksortHoare(&newList, low: 0, high: newList.count - 1)
+    XCTAssertEqual(medRes, newList)
+  }
 }
