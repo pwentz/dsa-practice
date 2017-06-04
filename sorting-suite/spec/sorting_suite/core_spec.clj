@@ -21,7 +21,7 @@
              (merge-sort (shuffle (range 1 11))))
     (should= true
              (-> (get-time #(merge-sort (shuffle stress-test)))
-                 (< 1.75)))))
+                 (< 2)))))
 
 (describe "selection-sort"
   (it "sorts"
@@ -38,9 +38,13 @@
 (describe "quick-sort"
   (it "sorts"
     (should= result
-             (quick-sort (shuffle (range 1 11))))
-    ;TODO: make q-sort-custom faster
+             (q-sort-custom (shuffle (range 1 11))))
     (should= true
              (-> (get-time #(q-sort-custom (shuffle stress-test)))
-                 (< 2)))
-    ))
+                 (< 1.75))))
+  (it "sorts faster using custom implementation"
+    (let [data (shuffle stress-test)
+          filter-q-time (get-time #(quick-sort data))
+          custom-q-time (get-time #(q-sort-custom data))]
+      (should= true
+               (< custom-q-time filter-q-time)))))
