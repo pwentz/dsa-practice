@@ -18,4 +18,8 @@ class sortingSuiteTests: XCTestCase {
     XCTAssertEqual(shortResult, selectionSort(shortList))
     XCTAssertEqual(medRes, selectionSort(medList))
   }
+
+  func testInsertionSort() {
+    XCTAssertEqual(shortResult, insertionSort(shortList))
+  }
 }

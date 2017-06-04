@@ -1,7 +1,8 @@
 (ns sorting-suite.core-spec
   (:require [speclj.core :refer :all]
             (sorting-suite [merge-sort :refer :all]
-                           [selection-sort :refer :all])))
+                           [selection-sort :refer :all]
+                           [insertion-sort :refer :all])))
 
 (describe "merge-sort"
   (it "sorts"
@@ -14,3 +15,10 @@
   (it "sorts"
     (should= [1 2 3 4 5 6 7 8 9 10]
              (selection-sort (shuffle (range 1 11))))))
+
+(describe "insertion-sort"
+  (it "sorts"
+      (should= [1 3 5 7 10]
+             (insert [1 3 5 7] 10))
+    (should= [1 2 3 4 5 6 7 8 9 10]
+             (insertion-sort (shuffle (range 1 11))))))
