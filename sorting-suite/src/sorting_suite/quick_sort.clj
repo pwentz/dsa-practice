@@ -1,4 +1,5 @@
-(ns sorting-suite.quick-sort)
+(ns sorting-suite.quick-sort
+  (:require [clojure.core.reducers :as r]))
 
 (defn partitioning [n c]
   "Custom partition function yields slightly faster results
@@ -24,12 +25,12 @@
 
 (defn quick-sort [c]
   "Quick sort with random pivot and filter partitioning,
-  take ~2 seconds when n = 100000"
+  take ~1 seconds when n = 100000"
   (if (< 1 (count c))
     (let [pivot (get (vec c) (rand-int (count c)))
-          less (filter #(< % pivot) c)
-          more (filter #(< pivot %) c)
-          eq (filter #{pivot} c)]
+          less (into [] (r/filter #(< % pivot) c))
+          more (into [] (r/filter #(< pivot %) c))
+          eq (into [] (r/filter #{pivot} c))]
       (lazy-cat
         (quick-sort less)
         eq

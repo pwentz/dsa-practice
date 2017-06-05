@@ -40,11 +40,5 @@
     (should= result
              (q-sort-custom (shuffle (range 1 11))))
     (should= true
-             (-> (get-time #(q-sort-custom (shuffle stress-test)))
-                 (< 1.75))))
-  (it "sorts faster using custom implementation"
-    (let [data (shuffle stress-test)
-          filter-q-time (get-time #(quick-sort data))
-          custom-q-time (get-time #(q-sort-custom data))]
-      (should= true
-               (< custom-q-time filter-q-time)))))
+             (-> (get-time #(quick-sort (shuffle stress-test)))
+                 (< 2)))))
