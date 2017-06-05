@@ -30,8 +30,8 @@
 
 (describe "insertion-sort"
   (it "sorts"
-      (should= [1 3 5 7 10]
-             (insert [1 3 5 7] 10))
+    (should= [1 3 5 7 10]
+           (insert [1 3 5 7] 10))
     (should= result
              (insertion-sort (shuffle (range 1 11))))))
 
