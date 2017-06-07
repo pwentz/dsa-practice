@@ -9,6 +9,16 @@
                        (iterate (comp char inc int) \a)))]
     (reduce add-node {} letters)))
 
+(defn generate-edges []
+  (-> (generate-nodes "i")
+      (add-edge "a" "b")
+      (add-edge "a" "c")
+      (add-edge "b" "d")
+      (add-edge "b" "e")
+      (add-edge "c" "f")
+      (add-edge "c" "g")
+      (add-edge "e" "h")))
+
 (describe "add-node"
   (it "takes a map of nodes and returns map with node added"
     (should= {"a" {:edges []}}
@@ -29,24 +39,25 @@
                (add-edge a-list "a" "b"))))
 
   (it "can add many edges"
-    (let [nodes (-> (generate-nodes "i")
-                    (add-edge "a" "b")
-                    (add-edge "a" "c")
-                    (add-edge "b" "d")
-                    (add-edge "b" "e")
-                    (add-edge "c" "f")
-                    (add-edge "c" "g")
-                    (add-edge "e" "h"))]
+    (let [nodes (generate-edges)]
       (should= {"a" {:edges ["b" "c"]} "b" {:edges ["d" "e"]} "c" {:edges ["f" "g"]}
                 "d" {:edges []} "e" {:edges ["h"]} "f" {:edges []}
                 "g" {:edges []} "h" {:edges []}}
                nodes)))
 
-  (it "requires a tree with existing nodes"
-    (should-throw (add-edge {} "a" "b")))
+  (it "can add node and edges if they do not exist"
+    (should= {"a" {:edges ["b"]}}
+             (add-edge {} "a" "b"))))
 
-  (it "requires a tree with nodes (i.e. :edge key must be present)"
-    (should-throw (add-edge {"a" []} "a" "b")))
+(describe "mark-visited"
+  (it "takes a tree and a source and returns the same tree with a :visited field on node"
+    (let [tree (generate-nodes "d")]
+      (should= {"a" {:edges []} "b" {:edges [] :visited true} "c" {:edges []}}
+               (mark-visited tree "b")))))
 
-  (it "requires :edges to be an array"
-    (should-throw (add-edge {"a" {:edges #{}}} "a" "b"))))
+(describe "breadth-first-search"
+  (it "takes a tree and a source node and returns vector of searched nodes"
+    (let [tree (generate-edges)]
+      (should= ["a" "b" "c" "d" "e" "f" "g" "h"]
+               (breadth-first-search tree "a"))
+      )))
