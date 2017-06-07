@@ -59,5 +59,4 @@
   (it "takes a tree and a source node and returns vector of searched nodes"
     (let [tree (generate-edges)]
       (should= ["a" "b" "c" "d" "e" "f" "g" "h"]
-               (breadth-first-search tree "a"))
-      )))
+               (breadth-first-search tree "a")))))

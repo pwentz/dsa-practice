@@ -1,10 +1,5 @@
 (ns breadth-first-search.core)
 
-; (def graph-requirements
-;   [#(not-empty %)
-;    #(every? :edges (vals %))
-;    #(every? vector? (map :edges (vals %)))])
-
 (defn mark-visited [tree source]
   (let [node (get tree source)]
     (assoc tree source (assoc node :visited true))))
@@ -25,18 +20,12 @@
 
 (defn breadth-first-search
   ([tree source queue nodes]
-   (println "Q" queue)
-   (println "TREE" tree)
-   (println "EXPLORED" nodes)
    (let [current (dequeue queue)]
-   (println "CURRENT" current)
      (if current
-       (let [neighbors (map #(get tree %) (:edges current))
-             updated-tree (reduce mark-visited tree (cons source (:edges current)))
-             unvisited (map #(assoc % :visited true) (remove :visited neighbors))
-             first-unvisited (remove #(:visited (get tree %)) (:edges current))]
-         (println "UNVISITED" first-unvisited)
-   (println "-------------")
-         (breadth-first-search updated-tree first-unvisited (apply enqueue (vec (rest queue)) unvisited) (apply conj nodes first-unvisited)))
+       (let [neighbors (map #(get tree %) (:edges current)) ; get neighbor nodes from tree
+             unvisited-nodes (remove :visited neighbors) ; add unvisited neighbors to queue
+             unvisited-keys (remove #(:visited (get tree %)) (:edges current)) ; add unvisited node-refs to explored
+             updated-tree (reduce mark-visited tree (cons source (:edges current)))] ; update-tree to reflect current and edges as visited
+         (breadth-first-search updated-tree (first unvisited-keys) (apply enqueue (vec (rest queue)) unvisited-nodes) (apply conj nodes unvisited-keys)))
        nodes)))
   ([tree source] (breadth-first-search tree source [(get tree source)] [source])))
