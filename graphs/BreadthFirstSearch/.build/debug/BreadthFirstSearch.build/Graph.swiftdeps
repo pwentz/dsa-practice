@@ -1,0 +1,101 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Edge"
+- "Node"
+- "Graph"
+provides-nominal:
+- "C18BreadthFirstSearch4Edge"
+- "C18BreadthFirstSearch4Node"
+- "C18BreadthFirstSearch5Graph"
+provides-member:
+- ["C18BreadthFirstSearch4Edge", ""]
+- ["C18BreadthFirstSearch4Node", ""]
+- ["C18BreadthFirstSearch5Graph", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "Array"
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BooleanLiteralType"
+- "Edge"
+- "Graph"
+- "Node"
+- "String"
+depends-member:
+- !private ["Ps9AnyObject", "Edge"]
+- !private ["Ps9AnyObject", "Node"]
+- !private ["Ps9AnyObject", "edges"]
+- !private ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "label"]
+- !private ["Ps9AnyObject", "neighbor"]
+- !private ["Ps9AnyObject", "nodes"]
+- !private ["Ps9AnyObject", "visited"]
+- ["Ps9AnyObject", ""]
+- !private ["Sa", "append"]
+- !private ["Ps23BidirectionalCollection", "append"]
+- !private ["Ps10Collection", "append"]
+- !private ["Ps28CustomDebugStringConvertible", "append"]
+- !private ["Ps17CustomReflectable", "append"]
+- !private ["Ps23CustomStringConvertible", "append"]
+- ["C18BreadthFirstSearch4Edge", "Node"]
+- ["C18BreadthFirstSearch4Edge", "deinit"]
+- ["C18BreadthFirstSearch4Edge", "init"]
+- ["C18BreadthFirstSearch4Edge", "neighbor"]
+- !private ["Ps25ExpressibleByArrayLiteral", "append"]
+- !private ["C18BreadthFirstSearch5Graph", "Edge"]
+- ["C18BreadthFirstSearch5Graph", "Node"]
+- ["C18BreadthFirstSearch5Graph", "String"]
+- ["C18BreadthFirstSearch5Graph", "addEdge"]
+- ["C18BreadthFirstSearch5Graph", "addNode"]
+- ["C18BreadthFirstSearch5Graph", "deinit"]
+- ["C18BreadthFirstSearch5Graph", "init"]
+- ["C18BreadthFirstSearch5Graph", "nodes"]
+- !private ["Ps17MutableCollection", "append"]
+- ["C18BreadthFirstSearch4Node", "Bool"]
+- ["C18BreadthFirstSearch4Node", "Edge"]
+- ["C18BreadthFirstSearch4Node", "String"]
+- ["C18BreadthFirstSearch4Node", "deinit"]
+- ["C18BreadthFirstSearch4Node", "edges"]
+- ["C18BreadthFirstSearch4Node", "init"]
+- ["C18BreadthFirstSearch4Node", "label"]
+- ["C18BreadthFirstSearch4Node", "visited"]
+- !private ["Ps22RandomAccessCollection", "append"]
+- !private ["Ps26RangeReplaceableCollection", "append"]
+- !private ["Ps8Sequence", "append"]
+- !private ["Ps14_ArrayProtocol", "append"]
+- !private ["Ps23_BidirectionalIndexable", "append"]
+- !private ["Ps24_DestructorSafeContainer", "append"]
+- !private ["Ps10_Indexable", "append"]
+- !private ["Ps14_IndexableBase", "append"]
+- !private ["Ps17_MutableIndexable", "append"]
+- !private ["Ps22_RandomAccessIndexable", "append"]
+- !private ["Ps26_RangeReplaceableIndexable", "append"]
+depends-nominal:
+- "Ps9AnyObject"
+- !private "Sa"
+- !private "Ps23BidirectionalCollection"
+- !private "Ps10Collection"
+- !private "Ps28CustomDebugStringConvertible"
+- !private "Ps17CustomReflectable"
+- !private "Ps23CustomStringConvertible"
+- "C18BreadthFirstSearch4Edge"
+- !private "Ps25ExpressibleByArrayLiteral"
+- "C18BreadthFirstSearch5Graph"
+- !private "Ps17MutableCollection"
+- "C18BreadthFirstSearch4Node"
+- !private "Ps22RandomAccessCollection"
+- !private "Ps26RangeReplaceableCollection"
+- !private "Ps8Sequence"
+- !private "Ps14_ArrayProtocol"
+- !private "Ps23_BidirectionalIndexable"
+- !private "Ps24_DestructorSafeContainer"
+- !private "Ps10_Indexable"
+- !private "Ps14_IndexableBase"
+- !private "Ps17_MutableIndexable"
+- !private "Ps22_RandomAccessIndexable"
+- !private "Ps26_RangeReplaceableIndexable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+interface-hash: "e8e8740423c31d9a840ce37aaff49b5d"

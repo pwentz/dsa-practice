@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "14da6921895237520d2e9f36648f8dcd"
+build_time: [550160411, 639489000]
+inputs:
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Tests/BreadthFirstSearchTests/BreadthFirstSearchTests.swift": [550160009, 0]

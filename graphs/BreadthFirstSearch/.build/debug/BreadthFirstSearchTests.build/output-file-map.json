@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearchTests.build/master.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Tests/BreadthFirstSearchTests/BreadthFirstSearchTests.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearchTests.build/BreadthFirstSearchTests.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearchTests.build/BreadthFirstSearchTests.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearchTests.build/BreadthFirstSearchTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearchTests.build/BreadthFirstSearchTests.swiftdeps"
+  }
+}

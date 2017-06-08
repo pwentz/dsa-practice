@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/GraphTests.build/master.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/Graph/Tests/GraphTests/GraphTests.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/GraphTests.build/GraphTests.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/GraphTests.build/GraphTests.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/GraphTests.build/GraphTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/GraphTests.build/GraphTests.swiftdeps"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "": {
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/master.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/AdjacencyListGraph.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/AdjacencyListGraph.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/AdjacencyListGraph.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/AdjacencyListGraph~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/AdjacencyListGraph.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Edge.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Edge.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Edge.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Edge~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Edge.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Graph.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Graph.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Graph.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Graph~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Graph.swiftdeps"
+  },
+  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Vertex.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Vertex.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Vertex.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Vertex~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/Graph/.build/debug/Graph.build/Vertex.swiftdeps"
+  }
+}

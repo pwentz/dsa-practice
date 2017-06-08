@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "9bfd41a0fc36ec3ca58292d8b7e3e08c"
+build_time: [550071931, 656664000]
+inputs:
+  "/Users/patrickwentz/DSAs/graphs/Graph/Tests/GraphTests/GraphTests.swift": !dirty [550071931, 0]
