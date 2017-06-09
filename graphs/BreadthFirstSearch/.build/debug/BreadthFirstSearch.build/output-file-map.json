@@ -8,6 +8,12 @@
     "swiftmodule": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/BreadthFirstSearch~partial.swiftmodule",
     "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/BreadthFirstSearch.swiftdeps"
   },
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/DepthFirstSearch.swift": {
+    "dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/DepthFirstSearch.d",
+    "object": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/DepthFirstSearch.swift.o",
+    "swiftmodule": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/DepthFirstSearch~partial.swiftmodule",
+    "swift-dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/DepthFirstSearch.swiftdeps"
+  },
   "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/Graph.swift": {
     "dependencies": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/Graph.d",
     "object": "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/.build/debug/BreadthFirstSearch.build/Graph.swift.o",

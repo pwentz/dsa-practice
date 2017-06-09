@@ -1,24 +1,18 @@
 ### Swift dependencies file v0 ###
 provides-top-level:
-- "counter"
 - "breadthFirstSearch"
 provides-nominal:
 provides-member:
 provides-dynamic-lookup:
 depends-top-level:
 - !private "!"
-- !private "+="
 - "AssignmentPrecedence"
 - !private "BooleanLiteralType"
-- "FloatLiteralType"
 - "Graph"
-- "IntegerLiteralType"
 - "Node"
 - !private "Queue"
 - "String"
 - "breadthFirstSearch"
-- "counter"
-- !private "print"
 depends-member:
 - !private ["Ps9AnyObject", "edges"]
 - !private ["Ps9AnyObject", "label"]
@@ -134,4 +128,4 @@ depends-dynamic-lookup:
 depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
-interface-hash: "d4b17afed5f6785e999e6ab87cfb2f54"
+interface-hash: "332c433602dac9930a2e7d186fa48bea"

@@ -1,7 +1,8 @@
 version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
 options: "cf77159c54ef35d6586d05820d70767f"
-build_time: [550160411, 555311000]
+build_time: [550281393, 521330000]
 inputs:
-  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/BreadthFirstSearch.swift": [550160411, 0]
-  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/Graph.swift": [550110216, 0]
-  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/Queue.swift": [550109748, 0]
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/BreadthFirstSearch.swift": [550196159, 0]
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/DepthFirstSearch.swift": [550281392, 0]
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/Graph.swift": [550196159, 0]
+  "/Users/patrickwentz/DSAs/graphs/BreadthFirstSearch/Sources/BreadthFirstSearch/Queue.swift": [550196159, 0]

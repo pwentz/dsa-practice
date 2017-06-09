@@ -1,7 +1,7 @@
 import XCTest
 @testable import BreadthFirstSearch
 
-class BreadthFirstSearchTests: XCTestCase {
+class DepthFirstSearchTests: XCTestCase {
 
   func directedTreeSetup() -> (Graph, Node) {
     let tree = Graph()
@@ -84,10 +84,10 @@ class BreadthFirstSearchTests: XCTestCase {
     let tree = setup.0
     let nodeA = setup.1
 
-    let nodesExplored = breadthFirstSearch(tree, source: nodeA)
+    let nodesExplored = depthFirstSearch(tree, source: nodeA)
     // let nodeLabels = nodesExplored.map { $0.label }
 
-    XCTAssertEqual(nodesExplored, ["a", "b", "c", "d", "e", "f", "g", "h"])
+    XCTAssertEqual(nodesExplored, ["a", "b", "d", "e", "h", "c", "f", "g"])
   }
 
   func testExploringGraph() {
