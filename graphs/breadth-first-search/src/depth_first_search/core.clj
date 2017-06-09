@@ -10,23 +10,12 @@
   (let [neighbors-of (comp :neighbors graph)]
     (assoc graph source {:neighbors (conj (neighbors-of source) neighbor)})))
 
-(defn push [stack & nodes]
-  (concat nodes stack))
-
-(defn if-visited [acc tree source]
-    (println "|| NODE" source)
-    (println "|| TREE" tree)
-    (println "|| NODES" acc)
-  (if (true? (-> source tree :visited))
-    acc
-    (conj acc source)))
-
 (defn depth-first-search
-  ([graph [curr & others :as st] nodes]
+  ([graph [curr & others] nodes]
    (if curr
-     (if (true? (-> curr graph :visited)) ; if visited before, keep going...
+     (if (true? (-> curr graph :visited)) ; if visited before, backtrack...
        (recur graph others nodes)
-       (let [unvisited (remove (comp :visited graph) (:neighbors (graph curr)))]
+       (let [unvisited (remove (comp :visited graph) (-> curr graph :neighbors))]
          (recur ; otherwise, place unvisited on top of stack
            (mark-visited graph curr)
            (concat unvisited others)

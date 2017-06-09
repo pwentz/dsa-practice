@@ -22,6 +22,8 @@ class BreadthFirstSearchTests: XCTestCase {
     tree.addEdge(nodeC, neighbor: nodeF)
     tree.addEdge(nodeC, neighbor: nodeG)
     tree.addEdge(nodeE, neighbor: nodeH)
+    tree.addEdge(nodeE, neighbor: nodeF)
+    tree.addEdge(nodeF, neighbor: nodeG)
 
     return (tree, nodeA)
   }

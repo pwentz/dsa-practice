@@ -1,8 +1,0 @@
-version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
-options: "b9f5d712878d01dc028200cb62a122af"
-build_time: [550071769, 89261000]
-inputs:
-  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/AdjacencyListGraph.swift": [550071441, 0]
-  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Edge.swift": [550071484, 0]
-  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Graph.swift": [550070686, 0]
-  "/Users/patrickwentz/DSAs/graphs/Graph/Sources/Vertex.swift": [550071527, 0]

@@ -4,8 +4,9 @@ public func depthFirstSearch(_ tree: Graph, source: Node) -> [String] {
 
   for edge in source.edges {
     if !edge.neighbor.visited {
-      nodesExplored += depthFirstSearch(tree, source: edge.neighbor)
+      nodesExplored.append(contentsOf: depthFirstSearch(tree, source: edge.neighbor))
     }
   }
+
   return nodesExplored
 }

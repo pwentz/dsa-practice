@@ -4,26 +4,28 @@ import XCTest
 class DepthFirstSearchTests: XCTestCase {
 
   func directedTreeSetup() -> (Graph, Node) {
-    let tree = Graph()
+    let graph = Graph()
 
-    let nodeA = tree.addNode("a")
-    let nodeB = tree.addNode("b")
-    let nodeC = tree.addNode("c")
-    let nodeD = tree.addNode("d")
-    let nodeE = tree.addNode("e")
-    let nodeF = tree.addNode("f")
-    let nodeG = tree.addNode("g")
-    let nodeH = tree.addNode("h")
+    let nodeA = graph.addNode("a")
+    let nodeB = graph.addNode("b")
+    let nodeC = graph.addNode("c")
+    let nodeD = graph.addNode("d")
+    let nodeE = graph.addNode("e")
+    let nodeF = graph.addNode("f")
+    let nodeG = graph.addNode("g")
+    let nodeH = graph.addNode("h")
 
-    tree.addEdge(nodeA, neighbor: nodeB)
-    tree.addEdge(nodeA, neighbor: nodeC)
-    tree.addEdge(nodeB, neighbor: nodeD)
-    tree.addEdge(nodeB, neighbor: nodeE)
-    tree.addEdge(nodeC, neighbor: nodeF)
-    tree.addEdge(nodeC, neighbor: nodeG)
-    tree.addEdge(nodeE, neighbor: nodeH)
+    graph.addEdge(nodeA, neighbor: nodeB)
+    graph.addEdge(nodeA, neighbor: nodeC)
+    graph.addEdge(nodeB, neighbor: nodeD)
+    graph.addEdge(nodeB, neighbor: nodeE)
+    graph.addEdge(nodeC, neighbor: nodeF)
+    graph.addEdge(nodeC, neighbor: nodeG)
+    graph.addEdge(nodeE, neighbor: nodeH)
+    graph.addEdge(nodeE, neighbor: nodeF)
+    graph.addEdge(nodeF, neighbor: nodeG)
 
-    return (tree, nodeA)
+    return (graph, nodeA)
   }
 
   func undirectedGraphSetup() -> (Graph, Node) {
@@ -79,33 +81,33 @@ class DepthFirstSearchTests: XCTestCase {
     return (graph, nodeA)
   }
 
-  func testExploringTree() {
-    let setup = directedTreeSetup()
-    let tree = setup.0
-    let nodeA = setup.1
+  // func testExploringTree() {
+  //   let setup = directedTreeSetup()
+  //   let tree = setup.0
+  //   let nodeA = setup.1
 
-    let nodesExplored = depthFirstSearch(tree, source: nodeA)
-    // let nodeLabels = nodesExplored.map { $0.label }
+  //   let nodesExplored = depthFirstSearch(tree, source: nodeA)
+  //   // let nodeLabels = nodesExplored.map { $0.label }
 
-    XCTAssertEqual(nodesExplored, ["a", "b", "d", "e", "h", "c", "f", "g"])
-  }
+  //   XCTAssertEqual(nodesExplored, ["a", "b", "d", "e", "h", "f", "g", "c"])
+  // }
 
   func testExploringGraph() {
     let setup = undirectedGraphSetup()
     let graph = setup.0
     let nodeA = setup.1
-    let nodesExplored = breadthFirstSearch(graph, source: nodeA)
+    let nodesExplored = depthFirstSearch(graph, source: nodeA)
     // let nodeLabels = nodesExplored.map { $0.label }
 
-    XCTAssertEqual(nodesExplored, ["a", "b", "h", "c", "g", "i", "d", "f", "e"])
+    XCTAssertEqual(nodesExplored, ["a", "b", "c", "d", "e", "f", "g", "h", "i"])
   }
 
-  func testExploringGraphWithASingleNode() {
-    let graph = Graph()
-    let node = graph.addNode("a")
+  // func testExploringGraphWithASingleNode() {
+  //   let graph = Graph()
+  //   let node = graph.addNode("a")
 
-    let nodesExplored = breadthFirstSearch(graph, source: node)
+  //   let nodesExplored = breadthFirstSearch(graph, source: node)
 
-    XCTAssertEqual(nodesExplored, ["a"])
-  }
+  //   XCTAssertEqual(nodesExplored, ["a"])
+  // }
 }

@@ -1,5 +1,0 @@
-version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
-options: "9bfd41a0fc36ec3ca58292d8b7e3e08c"
-build_time: [550071955, 541379000]
-inputs:
-  "/Users/patrickwentz/DSAs/graphs/Graph/Tests/GraphTests/GraphTests.swift": [550071955, 0]
