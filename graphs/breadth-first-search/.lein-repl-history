@@ -38,3 +38,5 @@ n
 (apply conj [] "a")
 (apply conj [] "1)
 (apply conj [] 1)
+(concat [1 2] [3] nil)
+(conj [1 2] [])
