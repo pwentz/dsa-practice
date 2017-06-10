@@ -29,7 +29,9 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
  - [quick sort](https://en.wikipedia.org/wiki/Quicksort)
 
 ##### Graphs
-  - [breadth first search](https://en.wikipedia.org/wiki/Breadth-first_search)
+  - [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search)
+  - [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search)
+  - [topological sort](https://en.wikipedia.org/wiki/Topological_sorting)
 
 
 More coming soon...
