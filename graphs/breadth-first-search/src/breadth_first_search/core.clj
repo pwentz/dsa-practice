@@ -1,14 +1,14 @@
 (ns breadth-first-search.core
   (:require [graph-utils :refer [mark-visited]]))
 
-(defn get-unvisited-and-update [graph]
-  (juxt (partial remove (comp :visited graph))
-        (partial reduce mark-visited graph)))
+(def get-unvisited-and-update
+  (juxt #(remove (comp :visited %1) %2)
+        #(reduce mark-visited %1 %2)))
 
 (defn breadth-first-search
-  ([graph [curr & others] nodes]
+  ([graph [curr & to-explore] explored]
    (if curr
-     (let [[unvisited new-graph] ((get-unvisited-and-update graph) (-> curr graph :neighbors))]
-       (recur new-graph (concat others unvisited) (concat nodes unvisited)))
-     nodes))
+     (let [[unvisited new-graph] (get-unvisited-and-update graph (-> curr graph :neighbors))]
+       (recur new-graph (concat to-explore unvisited) (concat explored unvisited)))
+     explored))
   ([graph source] (breadth-first-search (mark-visited graph source) [source] [source])))

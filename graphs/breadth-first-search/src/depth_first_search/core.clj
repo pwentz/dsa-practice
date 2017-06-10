@@ -2,14 +2,14 @@
   (:require [graph-utils :refer [mark-visited]]))
 
 (defn depth-first-search
-  ([graph [curr & others] nodes]
+  ([graph [curr & to-explore] explored]
    (if curr
-     (if (true? (-> curr graph :visited)) ; if visited before, backtrack...
-       (recur graph others nodes)
+     (if (true? (-> curr graph :visited))
+       ; if visited before, backtrack...
+       (recur graph to-explore explored)
        (let [unvisited (remove (comp :visited graph) (-> curr graph :neighbors))]
-         (recur ; otherwise, place unvisited on top of stack
-           (mark-visited graph curr)
-           (concat unvisited others)
-           (conj nodes curr))))
-     nodes))
+         ; otherwise, place unvisited on top of stack
+         (recur
+           (mark-visited graph curr) (concat unvisited to-explore) (conj explored curr))))
+     explored))
   ([graph source] (depth-first-search graph [source] [])))
