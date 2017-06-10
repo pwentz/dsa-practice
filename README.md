@@ -33,5 +33,8 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
   - [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search)
   - [topological sort](https://en.wikipedia.org/wiki/Topological_sorting)
 
-
 More coming soon...
+
+###### Notes
+Until I take the time and re-configure the directory structure of the `graphs` repo, `graphs/BreadthFirstSearch` contains BreadthFirstSearch AND DepthFirstSearch.
+`graphs/breadth-first-search` contains breadth, depth, and topological algos
