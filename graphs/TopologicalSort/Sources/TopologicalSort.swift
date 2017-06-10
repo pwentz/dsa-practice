@@ -77,6 +77,6 @@ extension Graph {
     let nodeDegrees = calculateInDegreeOfNodes()
     let startNodes = Array(nodeDegrees.keys).filter { nodeDegrees[$0] == 0 }
 
-    return startNodes.reduce([], { depthFirstSearch($1) + $0 })
+    return startNodes.reduce([], { acc, node in depthFirstSearch(node) + acc })
   }
 }
