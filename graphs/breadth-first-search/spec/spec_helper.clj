@@ -1,6 +1,6 @@
-(ns breadth-first-search.spec-helper
-  (:require [breadth-first-search.core :refer [add-node
-                                               add-edge]]))
+(ns spec-helper
+  (:require [graph-utils :refer [add-node
+                                 add-edge]]))
 
 (defn letters [[start] [stop]]
   (map str

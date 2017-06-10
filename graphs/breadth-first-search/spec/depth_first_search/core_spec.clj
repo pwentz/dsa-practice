@@ -1,7 +1,8 @@
 (ns depth-first-search.core-spec
   (:require [speclj.core :refer :all]
             [depth-first-search.core :refer :all]
-            [breadth-first-search.spec-helper :refer :all]))
+            [graph-utils :refer [add-edge add-node]]
+            [spec-helper :refer :all]))
 
 (def directed-tree
   (-> (generate-nodes "a" "i")
