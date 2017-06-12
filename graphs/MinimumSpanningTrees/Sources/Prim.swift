@@ -31,7 +31,7 @@ func minimumSpanningTreePrim<T>(graph: Graph<T>) -> (cost: Int, tree: Graph<T>) 
   priorityQueue.enqueue((vertex: start, weight: 0, parent: nil))
 
   while let head = priorityQueue.dequeue() {
-    // graph top of queue
+    // grab top of queue
     let vertex = head.vertex
     // if visited, continue...
     if visited.contains(vertex) {

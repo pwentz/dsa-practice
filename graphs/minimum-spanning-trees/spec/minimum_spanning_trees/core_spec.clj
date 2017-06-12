@@ -1,6 +1,6 @@
-(ns minimum-spanning-paths.core-spec
+(ns minimum-spanning-trees.core-spec
   (:require [speclj.core :refer :all]
-            [minimum-spanning-paths.core :refer :all]))
+            [minimum-spanning-trees.core :refer :all]))
 
 (def graph
   (-> (add-edge {} "A" "B" 5)
