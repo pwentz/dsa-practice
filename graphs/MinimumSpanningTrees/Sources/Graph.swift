@@ -1,5 +1,5 @@
 // Undirected edge
-public struct Edge<T>: CustomStringConvertible {
+public struct Edge<T>: CustomStringConvertible, Equatable {
   public let vertex1: T
   public let vertex2: T
   public let weight: Int
@@ -7,6 +7,11 @@ public struct Edge<T>: CustomStringConvertible {
   public var description: String {
     return "[\(vertex1)-\(vertex2), \(weight)]"
   }
+
+  public static func == (lhs: Edge<T>, rhs: Edge<T>) -> Bool {
+    return lhs.description == rhs.description
+  }
+
 }
 
 // Undirected weighted graph

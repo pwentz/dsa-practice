@@ -17,7 +17,7 @@ class MinimumSpanningTreesTests: XCTestCase {
     let eg = Edge<String>(vertex1: "E", vertex2: "G", weight: 7)
 
     func graphSetup() {
-      let edges: [Edge<String>] = [ab, ad, ag, bc, bd, cd, ec, cf, de, ef, eg, dg]
+      let edges = [ab, ad, ag, bc, bd, cd, ec, cf, de, ef, eg, dg]
       edges.forEach { graph.addEdge($0) }
     }
 
@@ -25,31 +25,19 @@ class MinimumSpanningTreesTests: XCTestCase {
       graphSetup()
       let result = minimumSpanningTreePrim(graph: graph)
 
-      let expectedEdges = [
-        ab.description,
-        ad.description,
-        de.description,
-        ec.description,
-        ef.description,
-        dg.description
-      ]
-
-      let resultEdges = result.tree.edgeList.map { $0.description }
+      let expectedEdges = [ab, ad, de, ec, ef, dg]
 
       XCTAssertEqual(result.cost, 23)
-      XCTAssertEqual(resultEdges, expectedEdges)
+      XCTAssertEqual(result.tree.edgeList, expectedEdges)
     }
 
     func testKruskal() {
       graphSetup()
       let result = minimumSpanningTreeKruskal(graph: graph)
 
-      let outcome1 = [ec, ef, de, dg, ab, bc].map { $0.description }
-      let outcome2 = [ec, ef, de, dg, ab, ad].map { $0.description }
-
-      let resultEdges = result.tree.edgeList.map { $0.description }
+      let expectedOutcome = [ec, ef, de, dg, ab, ad]
 
       XCTAssertEqual(result.cost, 23)
-      XCTAssert(resultEdges == outcome1 || resultEdges == outcome2)
+      XCTAssertEqual(result.tree.edgeList, expectedOutcome)
     }
 }

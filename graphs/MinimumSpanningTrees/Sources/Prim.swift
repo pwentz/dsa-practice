@@ -43,7 +43,7 @@ func minimumSpanningTreePrim<T>(graph: Graph<T>) -> (cost: Int, tree: Graph<T>) 
     // add cost
     cost += head.weight
 
-    // lay breadcrumbs if you came from somewhere
+    // add new edge to tree
     if let prev = head.parent {
       tree.addEdge(vertex1: prev, vertex2: vertex, weight: head.weight)
     }

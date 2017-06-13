@@ -1,22 +1,21 @@
-func minimumSpanningTreeKruskal<T>(graph: Graph<T>) -> (cost: Int, tree: Graph<T>) {
-  var cost: Int = 0
+public func minimumSpanningTreeKruskal<T>(graph: Graph<T>) -> (cost: Int, tree: Graph<T>) {
   var tree = Graph<T>()
-  let sortedEdgeListByWeight = graph.edgeList.sorted(by: { $0.weight < $1.weight })
-
   var unionFind = UnionFind<T>()
-  for vertex in graph.vertices {
-    unionFind.addSetWith(vertex)
+  var cost = 0
+
+  let edgesByWeight = graph.edgeList.sorted(by: { $0.weight < $1.weight })
+
+  graph.vertices.forEach { v in
+    unionFind.addSetWith(v)
   }
 
-  for edge in sortedEdgeListByWeight {
-    print("V1", edge.vertex1)
-    print("V2", edge.vertex2)
-    print("UNION", unionFind)
+  edgesByWeight.forEach { edge in
     let v1 = edge.vertex1
     let v2 = edge.vertex2
+
     if !unionFind.inSameSet(v1, and: v2) {
-      cost += edge.weight
       tree.addEdge(edge)
+      cost += edge.weight
       unionFind.unionSetsContaining(v1, and: v2)
     }
   }
