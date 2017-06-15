@@ -25,11 +25,11 @@ public struct UnionFind<T: Hashable> {
   public mutating func unionSetsContaining(_ firstNode: T, and secondNode: T) {
     if let firstSet = setOf(firstNode), let secondSet = setOf(secondNode), firstSet != secondSet {
 
-      let elts = treeSize[firstSet] >= treeSize[secondSet] ? (parent: firstSet, child: secondSet)
+      let edge = treeSize[firstSet] >= treeSize[secondSet] ? (parent: firstSet, child: secondSet)
                                                            : (parent: secondSet, child: firstSet)
 
-      parents[elts.child] = elts.parent
-      treeSize[elts.parent] += 1
+      parents[edge.child] = edge.parent
+      treeSize[edge.parent] += 1
     }
   }
 

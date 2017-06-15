@@ -1,4 +1,4 @@
-class Queue<T> {
+struct Queue<T> {
   var elements: [T] = []
   let sort: (T, T) -> Bool
 
@@ -6,12 +6,12 @@ class Queue<T> {
     self.sort = sort
   }
 
-  public func enqueue(_ elt: T) {
+  public mutating func enqueue(_ elt: T) {
     elements.append(elt)
     elements = elements.sorted(by: sort)
   }
 
-  public func dequeue() -> T? {
+  public mutating func dequeue() -> T? {
     return elements.isEmpty ? nil : elements.removeFirst()
   }
 }
