@@ -64,7 +64,7 @@ extension Graph {
     var nodesExplored = [source]
     source.visited = true
 
-    for edge in source.edges {
+    source.edges.forEach { edge in
       if !edge.neighbor.visited {
         nodesExplored += depthFirstSearch(edge.neighbor)
       }
