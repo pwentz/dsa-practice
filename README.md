@@ -32,9 +32,13 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
   - [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search)
   - [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search)
   - [topological sort](https://en.wikipedia.org/wiki/Topological_sorting)
+  - [minimum spanning trees](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
+    - [prims](https://en.wikipedia.org/wiki/Prim%27s_algorithm)
+    - [kruskals](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm)
+  - dijkstra's...
 
 More coming soon...
 
 ###### Notes
-Until I take the time and re-configure the directory structure of the `graphs` repo, `graphs/BreadthFirstSearch` contains BreadthFirstSearch AND DepthFirstSearch.
+Until I have enough solutions to make a reasonable assumption about how the directory structure should unfold, the directories themselves are inconsistently grouped. All the graphing algorithms are in the `graphs` repo, `graphs/BreadthFirstSearch` contains BreadthFirstSearch AND DepthFirstSearch.
 `graphs/breadth-first-search` contains breadth, depth, and topological algos
