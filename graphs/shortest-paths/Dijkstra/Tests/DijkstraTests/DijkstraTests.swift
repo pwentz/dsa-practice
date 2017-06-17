@@ -29,9 +29,6 @@ class DijkstraTests: XCTestCase {
 
     let expectedEdges = [ad, de, ef]
 
-    print(graph.adjList)
-
-    XCTAssertEqual(expectedEdges, result.tree.edgeList)
-    XCTAssertEqual(12, result.cost)
+    XCTAssertEqual(expectedEdges, result.edgeList)
   }
 }

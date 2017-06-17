@@ -1,55 +1,3 @@
-public struct Edge<T>: CustomStringConvertible, Equatable {
-  public let vertex1: T
-  public let vertex2: T
-  public let weight: Int
-
-  public var description: String {
-    return "[\(vertex1)-\(vertex2), \(weight)]"
-  }
-
-  public static func == (lhs: Edge<T>, rhs: Edge<T>) -> Bool {
-    return lhs.description == rhs.description
-  }
-
-}
-
-public struct Graph<T: Hashable>: CustomStringConvertible {
-
-  public private(set) var edgeList: [Edge<T>]
-  public private(set) var vertices: Set<T>
-  public private(set) var adjList: [T: [(vertex: T, weight: Int)]]
-
-  public init() {
-    edgeList = [Edge<T>]()
-    vertices = Set<T>()
-    adjList = [T: [(vertex: T, weight: Int)]]()
-  }
-
-  public var description: String {
-    var description = ""
-    for edge in edgeList {
-      description += edge.description + "\n"
-    }
-    return description
-  }
-
-  public mutating func addEdge(vertex1 v1: T, vertex2 v2: T, weight w: Int) {
-    edgeList.append(Edge(vertex1: v1, vertex2: v2, weight: w))
-    vertices.insert(v1)
-    vertices.insert(v2)
-
-    adjList[v1] = adjList[v1] ?? []
-    adjList[v1]?.append((vertex: v2, weight: w))
-
-    adjList[v2] = adjList[v2] ?? []
-    adjList[v2]?.append((vertex: v1, weight: w))
-  }
-
-  public mutating func addEdge(_ edge: Edge<T>) {
-    addEdge(vertex1: edge.vertex1, vertex2: edge.vertex2, weight: edge.weight)
-  }
-}
-
 struct Queue<T> {
   var elements: [T] = []
   let sort: (T, T) -> Bool
@@ -68,49 +16,68 @@ struct Queue<T> {
   }
 }
 
-func dijkstra<T>(graph: Graph<T>, start: T, end: T) -> (cost: Int, tree: Graph<T>) {
-  var cost: Int = 0
-  var tree = Graph<T>()
+func dijkstra<T>(graph: Graph<T>, start: T, end: T) -> Graph<T> {
+  // Needs to keep track of three things:
+  var costs: [T: Int] = [:] // current shortest paths to neighboring nodes
+  var parents: [T: T] = [:] // keys are neighboring nodes, vals are adjacent vertex on shortest path (breadcrumb)
+  var visited: Set<T> = [] // keeps track of nodes we've already explored
 
-  var visited = Set<T>()
   var priorityQueue = Queue<(vertex: T, weight: Int, parent: T?)>(
     sort: { $0.weight < $1.weight })
 
   priorityQueue.enqueue((vertex: start, weight: 0, parent: nil))
 
+  // grab shortest edge
   while let head = priorityQueue.dequeue() {
-    // grab top of queue
-    let vertex = head.vertex
-
-    if vertex == end {
-      return (cost: cost, tree: tree)
-    }
-
-    // if visited, continue...
-    if visited.contains(vertex) {
+    if visited.contains(head.vertex) {
       continue
     }
-    // otherwise, mark visited
-    visited.insert(vertex)
 
-    // add cost
-    cost += head.weight
-
-    // add new edge to tree
-    if let prev = head.parent {
-      tree.addEdge(vertex1: prev, vertex2: vertex, weight: head.weight)
+    guard let neighbors = graph.adjList[head.vertex] else {
+      visited.insert(head.vertex)
+      continue
     }
 
-    // add all non-visited neighbors to queue
-    if let neighbours = graph.adjList[vertex] {
-      for neighbour in neighbours {
-        let nextVertex = neighbour.vertex
-        if !visited.contains(nextVertex) {
-          priorityQueue.enqueue((vertex: nextVertex, weight: neighbour.weight, parent: vertex))
+    // iterate through all neighbors
+    for neighbor in neighbors {
+      // newCost is distance to take this path
+      let newCost = neighbor.weight + head.weight
+      let bestPath = costs[neighbor.vertex] ?? Int.max
+
+      // if newCost is lower then best existing cost to get to node, then update
+      if newCost < bestPath {
+        costs[neighbor.vertex] = newCost
+        parents[neighbor.vertex] = head.vertex
+
+        if !visited.contains(neighbor.vertex) {
+          priorityQueue.enqueue((vertex: neighbor.vertex, weight: newCost, parent: head.vertex))
         }
       }
     }
+
+    visited.insert(head.vertex)
   }
 
-  return (cost: cost, tree: tree)
+  var tree = Graph<T>()
+  var curr = end
+  var result: [Edge<T>] = []
+  var cost = 0
+
+  // traverse through parents starting with end and back to beginning
+  // to get shortest path
+  while curr != start, let nextNode = parents[curr] {
+    let edge = graph.edgeList.first(where: { ($0.vertex1 == nextNode || $0.vertex1 == curr) &&
+                                             ($0.vertex2 == nextNode || $0.vertex2 == curr) })
+
+    edge.map { e in
+      result.insert(e, at: 0)
+      cost += e.weight
+    }
+
+    curr = nextNode
+  }
+
+  result.forEach { tree.addEdge($0) }
+
+  return tree
 }

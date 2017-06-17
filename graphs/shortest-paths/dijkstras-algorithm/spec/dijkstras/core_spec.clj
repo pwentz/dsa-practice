@@ -39,7 +39,7 @@
     (let [result {#{"A" "D"} 7
                   #{"D" "G"} 4}]
       (should= result
-               (build-solution mini-graph {"B" "A", "D" "A", "G" "D"} "A" "G")))))
+               (build-shortest-path mini-graph {"B" "A", "D" "A", "G" "D"} "A" "G")))))
 
 (describe "dijkstra"
   (it "finds the shortest distance to G on mini-graph"
