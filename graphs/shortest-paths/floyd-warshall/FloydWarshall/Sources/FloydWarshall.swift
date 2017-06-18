@@ -1,26 +1,19 @@
 import Foundation
+  /**
+   Floyd-Warshall algorithm for computing all-pairs shortest paths in a weighted directed graph.
+
+   - precondition: `graph` must have no negative weight cycles
+   - returns a `FloydWarshallResult` struct which can be queried for shortest paths and their total weights
+   */
 
 private typealias Distances = [[Double]]
 private typealias Predecessors = [[Int?]]
-private typealias StepResult = (distances: Distances, predecessors: Predecessors)
 
-/**
- Encapsulation of the Floyd-Warshall All-Pairs Shortest Paths algorithm, conforming to the `APSPAlgorithm` protocol.
-
- - note: In all complexity bounds, `V` is the number of vertices in the graph, and `E` is the number of edges.
- */
 public struct FloydWarshall<T> where T: Hashable {
 
   public typealias Q = T
   public typealias P = FloydWarshallResult<T>
 
-  /**
-   Floyd-Warshall algorithm for computing all-pairs shortest paths in a weighted directed graph.
-
-   - precondition: `graph` must have no negative weight cycles
-   - complexity: `Θ(V^3)` time, `Θ(V^2)` space
-   - returns a `FloydWarshallResult` struct which can be queried for shortest paths and their total weights
-   */
   public static func apply<T>(_ graph: AdjacencyMatrixGraph<T>) -> FloydWarshallResult<T> {
 
     var previousDistance = constructInitialDistanceMatrix(graph)
@@ -29,56 +22,52 @@ public struct FloydWarshall<T> where T: Hashable {
       let nextResult = nextStep(intermediateIdx, previousDistances: previousDistance, previousPredecessors: previousPredecessor, graph: graph)
       previousDistance = nextResult.distances
       previousPredecessor = nextResult.predecessors
-
-//      // uncomment to see each new weight matrix
-//      print("  D(\(k)):\n")
-//      printMatrix(nextResult.distances)
-//
-//      // uncomment to see each new predecessor matrix
-//      print("  ∏(\(k)):\n")
-//      printIntMatrix(nextResult.predecessors)
     }
-    return FloydWarshallResult<T>(weights: previousDistance, predecessors: previousPredecessor)
 
+    return FloydWarshallResult<T>(weights: previousDistance, predecessors: previousPredecessor)
   }
 
   /**
-   For each iteration of `intermediateIdx`, perform the comparison for the dynamic algorith,
-   checking for each pair of start/end vertices, whether a path taken through another vertex
-   produces a shorter path.
+   For each iteration of `intermediateIdx`, perform the comparison for dynamic algo,
+   check each pair of start/end vertices, and whether a path taken different vertex yields shorter path.
 
-   - complexity: `Θ(V^2)` time/space
    - returns: a tuple containing the next distance matrix with weights of currently known
    shortest paths and the corresponding predecessor matrix
    */
-  static fileprivate func nextStep<T>(_ intermediateIdx: Int, previousDistances: Distances,
-                               previousPredecessors: Predecessors, graph: AdjacencyMatrixGraph<T>) -> StepResult {
+  static fileprivate func nextStep<T>( _ intermediateIdx: Int, previousDistances: Distances,
+                    previousPredecessors: Predecessors, graph: AdjacencyMatrixGraph<T>) -> (distances: Distances, predecessors: Predecessors) {
 
+    // intermediateIdx is current index that we're processing
     let vertexCount = graph.vertices.count
     var nextDistances = Array(repeating: Array(repeating: Double.infinity, count: vertexCount), count: vertexCount)
     var nextPredecessors = Array(repeating: Array<Int?>(repeating: nil, count: vertexCount), count: vertexCount)
 
     for fromIdx in 0 ..< vertexCount {
       for toIndex in 0 ..< vertexCount {
-//        printMatrix(previousDistances, i: fromIdx, j: toIdx, k: intermediateIdx) // uncomment to see each comparison being made
+        // existing "best path" from fromIdx to toIndex
         let originalPathWeight = previousDistances[fromIdx][toIndex]
+        // path from starting index to current index
         let newPathWeightBefore = previousDistances[fromIdx][intermediateIdx]
+        // path from current index to destination index
         let newPathWeightAfter = previousDistances[intermediateIdx][toIndex]
 
-        let minimum = min(originalPathWeight, newPathWeightBefore + newPathWeightAfter)
-        nextDistances[fromIdx][toIndex] = minimum
+        let newPathThroughIntermediate = newPathWeightBefore + newPathWeightAfter
 
         var predecessor: Int?
-        if originalPathWeight <= newPathWeightBefore + newPathWeightAfter {
-          predecessor = previousPredecessors[fromIdx][toIndex]
-        } else {
+
+        if newPathThroughIntermediate < originalPathWeight {
           predecessor = previousPredecessors[intermediateIdx][toIndex]
+          nextDistances[fromIdx][toIndex] = newPathThroughIntermediate
+        } else {
+          predecessor = previousPredecessors[fromIdx][toIndex]
+          nextDistances[fromIdx][toIndex] = originalPathWeight
         }
+
         nextPredecessors[fromIdx][toIndex] = predecessor
       }
     }
-    return (nextDistances, nextPredecessors)
 
+    return (nextDistances, nextPredecessors)
   }
 
   /**
@@ -139,9 +128,6 @@ public struct FloydWarshall<T> where T: Hashable {
 /**
  `FloydWarshallResult` encapsulates the result of the computation, namely the
  minimized distance adjacency matrix, and the matrix of predecessor indices.
-
- It conforms to the `APSPResult` procotol which provides methods to retrieve
- distances and paths between given pairs of start and end nodes.
  */
 public struct FloydWarshallResult<T> where T: Hashable {
 
@@ -151,7 +137,6 @@ public struct FloydWarshallResult<T> where T: Hashable {
   /**
    - returns: the total weight of the path from a starting vertex to a destination.
    This value is the minimal connected weight between the two vertices, or `nil` if no path exists
-   - complexity: `Θ(1)` time/space
    */
   public func distance(fromVertex from: Vertex<T>, toVertex to: Vertex<T>) -> Double? {
 
@@ -162,7 +147,6 @@ public struct FloydWarshallResult<T> where T: Hashable {
   /**
    - returns: the reconstructed path from a starting vertex to a destination,
    as an array containing the data property of each vertex, or `nil` if no path exists
-   - complexity: `Θ(V)` time, `Θ(V^2)` space
    */
   public func path(fromVertex from: Vertex<T>, toVertex to: Vertex<T>, inGraph graph: AdjacencyMatrixGraph<T>) -> [T]? {
 

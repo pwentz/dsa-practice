@@ -7,15 +7,6 @@ open class AdjacencyMatrixGraph<T> where T: Equatable, T: Hashable {
   fileprivate var adjacencyMatrix: [[Double?]] = []
   fileprivate var _vertices: [Vertex<T>] = []
 
-  public init(fromGraph graph: AdjacencyMatrixGraph<T>) {
-    for edge in graph.edges {
-      let from = createVertex(edge.from.data)
-      let to = createVertex(edge.to.data)
-
-      addDirectedEdge(from, to: to, withWeight: edge.weight)
-    }
-  }
-
   public init() {}
 
   open var vertices: [Vertex<T>] {
