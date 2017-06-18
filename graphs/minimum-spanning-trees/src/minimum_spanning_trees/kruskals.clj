@@ -18,7 +18,7 @@
 
 (defn unionize [union-find vertices]
   "Find root nodes that contain either vertex, pick the root with most children.
-   If no root contains either vertices, pick largest (ie. most children) root that matches either vertex"
+   If no root contains either vertex, pick largest (ie. most children) root that matches either vertex"
   (if-let [root-parent (first (sort-by-size union-find (get-parents vertices union-find)))]
     (assoc union-find root-parent (s/union vertices (union-find root-parent)))
     (let [[largest-parent] (sort-by-size union-find (filter #(contains? vertices %) (keys union-find)))]
@@ -39,9 +39,9 @@
      3. Add edge to new tree
      4. Unionize edge with correct union-find subtree
      5. Repeat with next edge in sorted list."
-  ([union-find [curr & more]]
-   (let [[[vertices weight]] (seq curr)]
-     (when vertices
+  ([union-find [edge & more]]
+   (let [[[vertices weight]] (seq edge)]
+     (when edge
        (if (same-set? union-find vertices)
          (recur union-find more)
          (merge {vertices weight} (kruskals (unionize union-find vertices) more))))))
