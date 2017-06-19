@@ -1,79 +1,21 @@
 import XCTest
 @testable import FloydWarshall
 
-struct TestCase<T> where T: Hashable {
+public func eval(_ lhs: [[Double?]], _ rhs: [[Double?]]) {
+  XCTAssertEqual(lhs.count, rhs.count, "Given arrays have mismatched length")
 
-  var from: Vertex<T>
-  var to: Vertex<T>
-  var expectedPath: [T]
-  var expectedDistance: Double
+  for (rowIdx, elt) in lhs.enumerated() {
+    for (colIdx, val) in elt.enumerated() {
+      XCTAssertEqual(rhs[rowIdx][colIdx], val)
+    }
+  }
 
 }
 
-class APSPTests: XCTestCase {
+class FloydWarshallTests: XCTestCase {
 
-  /**
-   See Figure 25.1 of “Introduction to Algorithms” by Cormen et al, 3rd ed., pg 690
-   */
-  func testExampleFromBook() {
-
-    // let graph = AdjacencyMatrixGraph<Int>()
-    // let v1 = graph.createVertex(1)
-    // let v2 = graph.createVertex(2)
-    // let v3 = graph.createVertex(3)
-    // let v4 = graph.createVertex(4)
-    // let v5 = graph.createVertex(5)
-
-    // graph.addDirectedEdge(v1, to: v2, withWeight: 3)
-    // graph.addDirectedEdge(v1, to: v5, withWeight: -4)
-    // graph.addDirectedEdge(v1, to: v3, withWeight: 8)
-
-    // graph.addDirectedEdge(v2, to: v4, withWeight: 1)
-    // graph.addDirectedEdge(v2, to: v5, withWeight: 7)
-
-    // graph.addDirectedEdge(v3, to: v2, withWeight: 4)
-
-    // graph.addDirectedEdge(v4, to: v1, withWeight: 2)
-    // graph.addDirectedEdge(v4, to: v3, withWeight: -5)
-
-    // graph.addDirectedEdge(v5, to: v4, withWeight: 6)
-
-    // let result = FloydWarshall<Int>.apply(graph)
-
-    // let cases = [
-    //   TestCase<Int>(from: v1, to: v4, expectedPath: [1, 5, 4], expectedDistance: 2),
-    //   TestCase<Int>(from: v1, to: v5, expectedPath: [1, 5], expectedDistance: -4),
-    //   TestCase<Int>(from: v2, to: v1, expectedPath: [2, 4, 1], expectedDistance: 3),
-    //   TestCase<Int>(from: v2, to: v3, expectedPath: [2, 4, 3], expectedDistance: -4),
-    //   TestCase<Int>(from: v2, to: v4, expectedPath: [2, 4], expectedDistance: 1),
-    //   TestCase<Int>(from: v2, to: v5, expectedPath: [2, 4, 1, 5], expectedDistance: -1),
-    //   TestCase<Int>(from: v3, to: v1, expectedPath: [3, 2, 4, 1], expectedDistance: 7),
-    //   TestCase<Int>(from: v3, to: v2, expectedPath: [3, 2], expectedDistance: 4),
-    //   TestCase<Int>(from: v3, to: v4, expectedPath: [3, 2, 4], expectedDistance: 5),
-    //   TestCase<Int>(from: v3, to: v5, expectedPath: [3, 2, 4, 1, 5], expectedDistance: 3),
-    //   TestCase<Int>(from: v4, to: v1, expectedPath: [4, 1], expectedDistance: 2),
-    //   TestCase<Int>(from: v4, to: v2, expectedPath: [4, 3, 2], expectedDistance: -1),
-    //   TestCase<Int>(from: v4, to: v3, expectedPath: [4, 3], expectedDistance: -5),
-    //   TestCase<Int>(from: v4, to: v5, expectedPath: [4, 1, 5], expectedDistance: -2),
-    //   TestCase<Int>(from: v5, to: v1, expectedPath: [5, 4, 1], expectedDistance: 8),
-    //   TestCase<Int>(from: v5, to: v2, expectedPath: [5, 4, 3, 2], expectedDistance: 5),
-    //   TestCase<Int>(from: v5, to: v3, expectedPath: [5, 4, 3], expectedDistance: 1),
-    //   TestCase<Int>(from: v5, to: v4, expectedPath: [5, 4], expectedDistance: 6),
-    //   ]
-
-    // for testCase: TestCase<Int> in cases {
-    //   if let computedPath = result.path(fromVertex: testCase.from, toVertex: testCase.to, inGraph: graph),
-    //      let computedDistance = result.distance(fromVertex: testCase.from, toVertex: testCase.to) {
-    //     XCTAssert(computedDistance == testCase.expectedDistance, "expected distance \(testCase.expectedDistance) but got \(computedDistance)")
-    //     XCTAssert(computedPath == testCase.expectedPath, "expected path \(testCase.expectedPath) but got \(computedPath)")
-    //   }
-    // }
-
-  }
-
-  func testExampleFromReadme() {
-
-    let graph = AdjacencyMatrixGraph<Int>()
+  func testCanCreateAdjacencyMatrixOfParents() {
+    let graph = Graph<Int>()
     let v1 = graph.createVertex(1)
     let v2 = graph.createVertex(2)
     let v3 = graph.createVertex(3)
@@ -88,27 +30,77 @@ class APSPTests: XCTestCase {
 
     graph.addDirectedEdge(v3, to: v4, withWeight: -5)
 
-    let result = FloydWarshall<Int>.apply(graph)
+    let inf = Double.infinity
 
-    let cases = [
-      TestCase<Int>(from: v1, to: v2, expectedPath: [1, 2], expectedDistance: 4),
-      TestCase<Int>(from: v1, to: v3, expectedPath: [1, 3], expectedDistance: 1),
-      TestCase<Int>(from: v1, to: v4, expectedPath: [1, 3, 4], expectedDistance: -4),
+    let expected = [[nil, 0.0, 0.0, 0.0],
+                    [inf, nil, 1.0, 1.0],
+                    [inf, inf, nil, 2.0],
+                    [inf, inf, inf, nil]]
 
-      TestCase<Int>(from: v2, to: v3, expectedPath: [2, 3], expectedDistance: 8),
-      TestCase<Int>(from: v2, to: v4, expectedPath: [2, 4], expectedDistance: -2),
+    let result = createParentMatrix(from: graph.adjMatrix)
 
-      TestCase<Int>(from: v3, to: v4, expectedPath: [3, 4], expectedDistance: -5),
-    ]
-
-    for testCase: TestCase<Int> in cases {
-      if let computedPath = result.path(fromVertex: testCase.from, toVertex: testCase.to, inGraph: graph),
-        let computedDistance = result.distance(fromVertex: testCase.from, toVertex: testCase.to) {
-        XCTAssert(computedDistance == testCase.expectedDistance, "expected distance \(testCase.expectedDistance) but got \(computedDistance)")
-        XCTAssert(computedPath == testCase.expectedPath, "expected path \(testCase.expectedPath) but got \(computedPath)")
-      }
-    }
-
+    eval(expected, result)
   }
 
+  func testFloydWarshallSmallGraph() {
+    let graph = Graph<Int>()
+    let v1 = graph.createVertex(1)
+    let v2 = graph.createVertex(2)
+    let v3 = graph.createVertex(3)
+    let v4 = graph.createVertex(4)
+
+    graph.addDirectedEdge(v1, to: v2, withWeight: 4)
+    graph.addDirectedEdge(v1, to: v3, withWeight: 1)
+    graph.addDirectedEdge(v1, to: v4, withWeight: 3)
+
+    graph.addDirectedEdge(v2, to: v3, withWeight: 8)
+    graph.addDirectedEdge(v2, to: v4, withWeight: -2)
+
+    graph.addDirectedEdge(v3, to: v4, withWeight: -5)
+
+    let inf = Double.infinity
+
+    let expected = [[0.0, 4.0, 1.0, -4.0],
+                    [inf, 0.0, 8.0, -2.0],
+                    [inf, inf, 0.0, -5.0],
+                    [inf, inf, inf, 0.0]]
+
+    let result = floydWarshall(graph: graph)
+
+    eval(expected, result)
+  }
+
+  func testFloydWarshallLargerGraph() {
+    let graph = Graph<Int>()
+    let v1 = graph.createVertex(1)
+    let v2 = graph.createVertex(2)
+    let v3 = graph.createVertex(3)
+    let v4 = graph.createVertex(4)
+    let v5 = graph.createVertex(5)
+
+    graph.addDirectedEdge(v1, to: v2, withWeight: 3)
+    graph.addDirectedEdge(v1, to: v5, withWeight: -4)
+    graph.addDirectedEdge(v1, to: v3, withWeight: 8)
+
+    graph.addDirectedEdge(v2, to: v4, withWeight: 1)
+    graph.addDirectedEdge(v2, to: v5, withWeight: 7)
+
+    graph.addDirectedEdge(v3, to: v2, withWeight: 4)
+
+    graph.addDirectedEdge(v4, to: v1, withWeight: 2)
+    graph.addDirectedEdge(v4, to: v3, withWeight: -5)
+
+    graph.addDirectedEdge(v5, to: v4, withWeight: 6)
+
+
+    let expected = [[0.0,  1.0, -3.0,  2.0, -4.0],
+                    [3.0,  0.0, -4.0,  1.0, -1.0],
+                    [7.0,  4.0,  0.0,  5.0,  3.0],
+                    [2.0, -1.0, -5.0,  0.0, -2.0],
+                    [8.0,  5.0,  1.0,  6.0,  0.0]]
+
+    let result = floydWarshall(graph: graph)
+
+    eval(expected, result)
+  }
 }
