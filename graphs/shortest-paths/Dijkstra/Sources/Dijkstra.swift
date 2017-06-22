@@ -16,6 +16,33 @@ struct Queue<T> {
   }
 }
 
+func buildShortestPath<T>(graph: Graph<T>, parents: [T: T], start: T, end: T) -> Graph<T> {
+  var tree = Graph<T>()
+  var curr = end
+  var result: [Edge<T>] = []
+  var cost = 0
+
+  // traverse through parents starting with end and back to beginning
+  // to get shortest path
+  while curr != start, let nextNode = parents[curr] {
+    let edge = graph.edgeList.first(where: { edge in
+      (edge.vertex1 == nextNode || edge.vertex1 == curr) &&
+        (edge.vertex2 == nextNode || edge.vertex2 == curr)
+    })
+
+    edge.map { e in
+      result.insert(e, at: 0)
+      cost += e.weight
+    }
+
+    curr = nextNode
+  }
+
+  result.forEach { tree.addEdge($0) }
+
+  return tree
+}
+
 func dijkstra<T>(graph: Graph<T>, start: T, end: T) -> Graph<T> {
   // Needs to keep track of three things:
   var costs: [T: Int] = [:] // current shortest paths to neighboring nodes
@@ -58,26 +85,5 @@ func dijkstra<T>(graph: Graph<T>, start: T, end: T) -> Graph<T> {
     visited.insert(head.vertex)
   }
 
-  var tree = Graph<T>()
-  var curr = end
-  var result: [Edge<T>] = []
-  var cost = 0
-
-  // traverse through parents starting with end and back to beginning
-  // to get shortest path
-  while curr != start, let nextNode = parents[curr] {
-    let edge = graph.edgeList.first(where: { ($0.vertex1 == nextNode || $0.vertex1 == curr) &&
-                                             ($0.vertex2 == nextNode || $0.vertex2 == curr) })
-
-    edge.map { e in
-      result.insert(e, at: 0)
-      cost += e.weight
-    }
-
-    curr = nextNode
-  }
-
-  result.forEach { tree.addEdge($0) }
-
-  return tree
+  return buildShortestPath(graph: graph, parents: parents, start: start, end: end)
 }
