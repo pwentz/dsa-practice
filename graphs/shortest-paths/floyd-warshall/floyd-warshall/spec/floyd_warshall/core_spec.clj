@@ -5,7 +5,7 @@
 (defn add-edge [graph source neighbor weight]
   (merge-with merge graph {source {neighbor weight}}))
 
-(def i Long/MAX_VALUE)
+(def i Double/POSITIVE_INFINITY)
 
 (def mini-graph
   (-> (add-edge {} 1 2 4)
@@ -78,7 +78,17 @@
                   [2  -1  -5   0  -2]
                   [8   5   1   6   0]]]
       (should= result
-               (:distances (floyd-warshall graph))))))
+               (:distances (floyd-warshall graph)))))
+
+  (it "can return parents for large graphs"
+    (let [x nil
+          result [[x  2  3  4  0]
+                  [3  x  3  1  0]
+                  [3  2  x  1  0]
+                  [3  2  3  x  0]
+                  [3  2  3  4  x]]]
+      (should= result
+               (:parents (floyd-warshall graph))))))
 
 (describe "build-path"
   (it "builds a path"
@@ -96,7 +106,7 @@
                (build-shortest-path {} [0 4 1 -4] [nil 0 0 2] mini-graph 0)))))
 
 (describe "floyd-warshall-graph"
-  (it "gets all paths"
+  (it "gets all paths for mini graph"
     (let [result {1
                   {2 {#{1 2} 4}
                    3 {#{1 3} 1}
@@ -108,4 +118,33 @@
                   {4 {#{3 4} -5}}
                   4 {}}]
       (should= result
-               (floyd-warshall-graph mini-graph)))))
+               (floyd-warshall-graph mini-graph))))
+
+  (it "gets all paths for graph"
+    (let [result {1
+                  {2 {#{1 5} -4, #{5 4} 6, #{4 3} -5, #{3 2} 4}
+                   3 {#{1 5} -4, #{5 4} 6, #{4 3} -5}
+                   4 {#{1 5} -4, #{5 4} 6}
+                   5 {#{1 5} -4}}
+                  2
+                  {1 {#{2 4} 1, #{4 1} 2}
+                   3 {#{2 4} 1, #{4 3} -5}
+                   4 {#{2 4} 1}
+                   5 {#{2 4} 1, #{4 1} 2, #{1 5} -4}}
+                  3
+                  {1 {#{3 2} 4, #{2 4} 1, #{4 1} 2}
+                   2 {#{3 2} 4}
+                   4 {#{3 2} 4, #{2 4} 1}
+                   5 {#{3 2} 4, #{2 4} 1, #{4 1} 2, #{1 5} -4}}
+                  4
+                  {1 {#{4 1} 2}
+                   2 {#{4 3} -5, #{3 2} 4}
+                   3 {#{4 3} -5}
+                   5 {#{4 1} 2, #{1 5} -4}}
+                  5
+                  {1 {#{5 4} 6, #{4 1} 2}
+                   2 {#{5 4} 6, #{4 3} -5, #{3 2} 4}
+                   3 {#{5 4} 6, #{4 3} -5}
+                   4 {#{5 4} 6}}}]
+      (should= result
+               (floyd-warshall-graph graph)))))
