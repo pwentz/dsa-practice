@@ -38,16 +38,6 @@ The graph above has an initial distance adjacency matrix of:
  [inf,  inf,  inf,  0.0]]
 ```
 
-and an initial parent/neighboring adjacency matrix of:
-```
-[[nil, 0.0, 0.0, 0.0],
- [inf, nil, 1.0, 1.0],
- [inf, inf, nil, 2.0],
- [inf, inf, inf, nil]]
-```
-where the value in each position represents the neighboring node
-taken to achieve the value represented in the distance matrix
-
 Therefore, the resulting adjacency matrix of the graph would look like:
 ```
 [[0.0, 4.0, 1.0, -4.0],
@@ -55,6 +45,24 @@ Therefore, the resulting adjacency matrix of the graph would look like:
  [inf, inf, 0.0, -5.0],
  [inf, inf, inf, 0.0]]
 ```
+
+
+If we wanted to reconstruct the resulting distance matrix that Floyd's returns,
+we can keep track of a parent matrix to represent the last intermediate vertex
+between any two nodes.
+
+```
+[[nil, 0.0, 0.0, 0.0],
+ [inf, nil, 1.0, 1.0],
+ [inf, inf, nil, 2.0],
+ [inf, inf, inf, nil]]
+```
+the value in each position represents the neighboring node
+taken to reach the value represented in the distance matrix
+
+Floyd-Warshall itself only returns the distance matrix, in most cases that's
+all that is really needed.
+
 
 ##### Implementation
 
