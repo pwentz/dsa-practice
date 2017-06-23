@@ -63,7 +63,6 @@ taken to reach the value represented in the distance matrix
 Floyd-Warshall itself only returns the distance matrix, in most cases that's
 all that is really needed.
 
-
 ##### Implementation
 
 The steps Floyd-Warshall takes to produce the final matrix are as follows:

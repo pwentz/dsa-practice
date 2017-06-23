@@ -26,9 +26,8 @@
     (vec (map-indexed parent-row distances))))
 
 (defn floyd-warshall
-  ([graph] (let [distances (adjacency-matrix graph)
-                 parents (parent-matrix distances)]
-             (reduce floyd-warshall {:distances distances :parents parents} (-> distances count range))))
+  ([graph] (let [distances (adjacency-matrix graph)]
+             (reduce floyd-warshall {:distances distances :parents (parent-matrix distances)} (-> distances count range))))
 
   ([{distances :distances :as payload} intermediate-idx]
    (reduce #(floyd-warshall %1 intermediate-idx %2) payload (-> payload :distances count range)))
@@ -38,9 +37,8 @@
 
   ([{:keys [distances parents] :as payload} intermediate-idx start-idx end-idx]
    (let [current-best (get-in distances [start-idx end-idx])
-         start-to-intermediate (get-in distances [start-idx intermediate-idx])
-         intermediate-to-end (get-in distances [intermediate-idx end-idx])
-         new-cost (+ start-to-intermediate intermediate-to-end)]
+         new-cost (+ (get-in distances [start-idx intermediate-idx])
+                     (get-in distances [intermediate-idx end-idx]))]
      (if (< new-cost current-best)
        (assoc payload :distances (assoc-in distances [start-idx end-idx] new-cost)
                       :parents (assoc-in parents

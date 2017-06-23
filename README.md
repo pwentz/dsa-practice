@@ -35,7 +35,8 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
   - [minimum spanning trees](https://en.wikipedia.org/wiki/Minimum_spanning_tree)
     - [prims](https://en.wikipedia.org/wiki/Prim%27s_algorithm)
     - [kruskals](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm)
-  - dijkstra's...
+  - [dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+  - [floyd-warshall](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
 
 More coming soon...
 
