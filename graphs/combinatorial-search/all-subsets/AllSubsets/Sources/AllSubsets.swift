@@ -9,7 +9,7 @@ class SubsetConstructor {
   func build() -> Set<Set<Int>> {
     var a: [Bool] = Array(repeating: false, count: input + 1)
 
-    backtrack(&a, 0, input: input)
+    backtrack(&a, 0)
 
     return solutions
   }
@@ -34,18 +34,15 @@ class SubsetConstructor {
     solutions.insert(newSolution)
   }
 
-  private func backtrack(_ a: inout [Bool], _ k: Int, input: Int) {
-    let candidates = constructCandidates()
+  private func backtrack(_ a: inout [Bool], _ k: Int) {
+    let (n, candidates) = constructCandidates()
 
     if isASolution(a, k, input) {
       processSolution(a, k)
     } else {
-
-      let c = candidates.candidates
-
-      for i in 0..<candidates.n {
-        a[k + 1] = c[i]
-        backtrack(&a, k + 1, input: input)
+      for i in 0..<n {
+        a[k + 1] = candidates[i]
+        backtrack(&a, k + 1)
       }
     }
   }

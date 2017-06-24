@@ -38,6 +38,10 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
   - [dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
   - [floyd-warshall](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
 
+##### Combinatorial Search
+  - [construct all subsets](https://www8.cs.umu.se/kurser/TDBA77/VT06/algorithms/BOOK/BOOK2/NODE85.HTM#SECTION02511000000000000000)
+  - [construct all permutations]()
+
 More coming soon...
 
 ###### Notes
