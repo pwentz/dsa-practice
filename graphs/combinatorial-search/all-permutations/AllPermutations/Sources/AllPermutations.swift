@@ -1,38 +1,35 @@
-let TRUE: Int = 1
-let FALSE: Int = 0
-
 class PermutationsConstructor {
+  public var solutions: [Array<Int>] = []
   private let input: Int
-  private var solutions: [Array<Int>] = []
+  private let TRUE: Int = 1
+  private let FALSE: Int = 0
+
+  private var defaultArr: [Int] {
+    return Array(repeating: FALSE, count: input + 1)
+  }
 
   init(for input: Int) {
     self.input = input
   }
 
-  func build() -> [Array<Int>] {
-    var a: [Int] = Array(repeating: FALSE, count: input + 1)
+  func build() -> PermutationsConstructor {
+    backtrack(defaultArr, 0)
 
-    backtrack(&a, 0)
-
-    return solutions
+    return self
   }
 
   private func isASolution(_ a: [Int], _ k: Int, _ n: Int) -> Bool {
     return k == n
   }
 
-  private func constructCandidates(_ a: [Int], _ k: Int, c: inout [Int], nCandidates: inout Int) {
-    var inPerm: [Int] = Array(repeating: FALSE, count: input + 1)
-
-    for i in 1..<inPerm.count {
-      inPerm[i] = FALSE
-    }
+  private func constructCandidates(_ a: [Int], _ k: Int) -> (nCandidates: Int, candidates: [Int]) {
+    var inPerm: [Int] = defaultArr
+    var c: [Int] = defaultArr
+    var nCandidates = 0
 
     for i in 0..<k {
       inPerm[a[i]] = TRUE
     }
-
-    nCandidates = 0
 
     for i in 1...input {
       if inPerm[i] == FALSE {
@@ -40,6 +37,8 @@ class PermutationsConstructor {
         nCandidates+=1
       }
     }
+
+    return (nCandidates: nCandidates, candidates: c)
   }
 
   private func processSolution(_ a: [Int], _ k: Int) {
@@ -52,22 +51,16 @@ class PermutationsConstructor {
     solutions.append(newSolution)
   }
 
-  private func backtrack(_ a: inout [Int], _ k: Int) {
-    print("K", k)
-    print("A", a.dropFirst())
-    print("------------")
-    var candidates = Array(repeating: FALSE, count: input + 1)
-    var nCandidates = 0
-
+  private func backtrack(_ a: [Int], _ k: Int) {
     if isASolution(a, k, input) {
       processSolution(a, k)
     } else {
-
-      constructCandidates(a, k + 1, c: &candidates, nCandidates: &nCandidates)
+      let (nCandidates, candidates) = constructCandidates(a, k + 1)
 
       for i in 0..<nCandidates {
-        a[k + 1] = candidates[i]
-        backtrack(&a, k + 1)
+        var b = a
+        b[k + 1] = candidates[i]
+        backtrack(b, k + 1)
       }
     }
   }

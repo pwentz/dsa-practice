@@ -16,8 +16,7 @@ class AllPermutationsTests: XCTestCase {
     func testAllPermutations() {
         let input = 3
 
-        let result = PermutationsConstructor(for: input).build()
-        print(result)
+        let permutations = PermutationsConstructor(for: input).build().solutions
 
         let expectedOutput = [
           [1, 2, 3],
@@ -28,6 +27,6 @@ class AllPermutationsTests: XCTestCase {
           [3, 2, 1]
         ]
 
-        eval(result, expectedOutput)
+        eval(permutations, expectedOutput)
     }
 }
