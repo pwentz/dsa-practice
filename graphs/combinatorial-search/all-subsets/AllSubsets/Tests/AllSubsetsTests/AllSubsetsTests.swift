@@ -2,7 +2,7 @@ import XCTest
 @testable import AllSubsets
 
 class AllSubsetsTests: XCTestCase {
-    func testAllSubsets() {
+    func testAllSubsetsWhereNIs3() {
       let input = 3
 
       let subsetConstructor = SubsetConstructor(for: input)
@@ -11,11 +11,23 @@ class AllSubsetsTests: XCTestCase {
 
       XCTAssertEqual(subsetConstructor.build(), output)
     }
-}
 
-// START - k = 0,
-//         a = [false, false, false]
-//         solutions = []
+    func testAllSubsetsWhereNIs4() {
+      let input = 4
+
+      let subsetConstructor = SubsetConstructor(for: input)
+
+
+      let output: Set<Set<Int>> = [
+        [1, 2, 3, 4], [2, 3, 4], [1, 3, 4], [1, 2, 4],
+        [1, 2, 3], [1, 2], [1, 3], [1, 4],
+        [2, 3], [2, 4], [3, 4], [1],
+        [2], [3], [4], []
+      ]
+
+      XCTAssertEqual(subsetConstructor.build(), output)
+    }
+}
 
 // BTRACK-1 - k = 0 / a = [false, false, false] / solutions = []
 //    FOR i in 0...1
