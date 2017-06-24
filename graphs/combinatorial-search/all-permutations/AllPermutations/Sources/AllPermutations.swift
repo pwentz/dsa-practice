@@ -13,7 +13,8 @@ class PermutationsConstructor {
   }
 
   func build() -> PermutationsConstructor {
-    backtrack(defaultArr, 0)
+    var a = defaultArr
+    backtrack(&a, 0)
 
     return self
   }
@@ -51,16 +52,15 @@ class PermutationsConstructor {
     solutions.append(newSolution)
   }
 
-  private func backtrack(_ a: [Int], _ k: Int) {
+  private func backtrack(_ a: inout [Int], _ k: Int) {
     if isASolution(a, k, input) {
       processSolution(a, k)
     } else {
       let (nCandidates, candidates) = constructCandidates(a, k + 1)
 
       for i in 0..<nCandidates {
-        var b = a
-        b[k + 1] = candidates[i]
-        backtrack(b, k + 1)
+        a[k + 1] = candidates[i]
+        backtrack(&a, k + 1)
       }
     }
   }
