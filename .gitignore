@@ -14,3 +14,4 @@
 *.lein-plugins
 *.lein-repl-history
 *.nrepl-port
+Skiena/*
