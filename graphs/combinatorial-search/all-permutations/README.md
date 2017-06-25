@@ -49,13 +49,10 @@ Next, the function goes through the numbers starting from `1` up to the `input` 
 ```.swift
 for i in 1...input {
   if inPerm[i] == FALSE {
-    c[nCandidates] = i
-    nCandidates += 1
+    candidates.append(i)
   }
 }
 ```
-The `nCandidates` is needed to keep track of only valid candidates (array buffers skew `count` as a metric)
-
 The last difference between this algorithm and combination algorithm is the `processSolution` function. In
 the combinations solution, we were storing `a` as an array of booleans, so we needed to make that check. However
 this time we simply need to iterate through `a` up to `k` to get our partial solution.

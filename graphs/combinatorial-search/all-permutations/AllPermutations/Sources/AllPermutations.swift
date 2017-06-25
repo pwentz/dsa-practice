@@ -23,27 +23,22 @@ class PermutationsConstructor {
     return k == n
   }
 
-  private func constructCandidates(_ a: [Int], _ k: Int) -> (nCandidates: Int, candidates: [Int]) {
+  private func constructCandidates(_ a: [Int], _ k: Int) -> [Int] {
     var inPerm: [Int] = defaultArr
-    var c: [Int] = defaultArr
-    var nCandidates = 0
+    var c: [Int] = []
 
     for i in 0..<k {
       let explored = a[i]
       inPerm[explored] = TRUE
     }
 
-    print("A", a)
-    print("IN PERM", inPerm)
-
     for i in 1...input {
       if inPerm[i] == FALSE {
-        c[nCandidates] = i
-        nCandidates+=1
+        c.append(i)
       }
     }
 
-    return (nCandidates: nCandidates, candidates: c)
+    return c
   }
 
   private func processSolution(_ a: [Int], _ k: Int) {
@@ -60,10 +55,10 @@ class PermutationsConstructor {
     if isASolution(a, k, input) {
       processSolution(a, k)
     } else {
-      let (nCandidates, candidates) = constructCandidates(a, k + 1)
+      let candidates = constructCandidates(a, k + 1)
 
-      for i in 0..<nCandidates {
-        a[k + 1] = candidates[i]
+      candidates.forEach { candidate in
+        a[k + 1] = candidate
         backtrack(&a, k + 1)
       }
     }

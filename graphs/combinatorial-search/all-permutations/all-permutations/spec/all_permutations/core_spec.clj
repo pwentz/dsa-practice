@@ -5,8 +5,7 @@
 (describe "construct-solution"
   (it "constructs a solution"
     (should= [1 2]
-             (:candidates (construct-solution [0 3 0 0] 2 3)))
-    (should= 2 (:n (construct-solution [0 3 0 0] 2 3)))))
+             (construct-solution [0 3 0 0] 2 3))))
 
 (describe "all-permutations"
   (it "returns all permutations of given input n"
