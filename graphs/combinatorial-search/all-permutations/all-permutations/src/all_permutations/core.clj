@@ -8,16 +8,15 @@
 
 (defn construct-solution [a k input]
   (let [in-perm (reduce #(assoc %1 (a %2) TRUE) (defaults input) (range k))]
-    (reduce-kv (fn [acc idx c]
+    (reduce-kv (fn [{:keys [candidates n] :as acc} idx c]
                  (if (or (= TRUE c) (zero? idx))
                    acc
-                   (let [{:keys [candidates n]} acc]
-                     (-> (update-in acc [:n] inc)
-                         (assoc-in [:candidates] (assoc candidates n idx))))))
+                   (-> (update-in acc [:n] inc)
+                       (assoc-in [:candidates] (assoc candidates n idx)))))
                {:n 0, :candidates []} in-perm)))
 
 (defn- process-solution [position-matchers]
-  (mapv position-matchers (range 1 (count position-matchers))))
+  (mapv position-matchers (->> position-matchers count (range 1))))
 
 (defn- backtrack [position-matchers k input acc]
   (if (= k input)

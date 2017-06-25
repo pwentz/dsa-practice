@@ -29,8 +29,12 @@ class PermutationsConstructor {
     var nCandidates = 0
 
     for i in 0..<k {
-      inPerm[a[i]] = TRUE
+      let explored = a[i]
+      inPerm[explored] = TRUE
     }
+
+    print("A", a)
+    print("IN PERM", inPerm)
 
     for i in 1...input {
       if inPerm[i] == FALSE {
