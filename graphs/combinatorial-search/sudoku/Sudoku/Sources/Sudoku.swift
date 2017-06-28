@@ -44,6 +44,7 @@ class SudokuSolver {
       possibilities[i] = initiate
     }
 
+    // check for open cells in row and column
     for i in 0..<DIMENSION {
       let cellInRow = board.m[x][i]
       let cellInCol = board.m[i][y]
@@ -57,10 +58,11 @@ class SudokuSolver {
       }
     }
 
-    // Cells in sector
+    // coords to top left of sector that x,y square is in
     let xLow = BASED * (x / BASED)
     let yLow = BASED * (y / BASED)
 
+    // Search the sector for taken cells
     for i in xLow..<(xLow + BASED) {
       for j in yLow..<(yLow + BASED) {
         let cell = board.m[i][j]
@@ -75,7 +77,11 @@ class SudokuSolver {
 
   func possibleCount(_ x: Int, _ y: Int, _ board: BoardType) -> Int {
     // Return number of candidates, per square, that have not been used yet
+<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
     return possibleValues(x, y, board).reduce(0, { $1 ? $0 + 1 : $0 })
+=======
+    return possibleValues(x, y, board).reduce(0, { $1 == true ? $0 + 1 : $0 })
+>>>>>>> refactored
   }
 
   func nextSquare(_ board: BoardType) -> (Int, Int) {
@@ -92,12 +98,14 @@ class SudokuSolver {
         // If no possible candidates, and value is empty...set to false
         if newCount == 0 && board.m[i][j] == 0 {
           shouldPrune = true
+          // return (-1, -1)
         }
 
         // If possible candidates and space is open, then update x and y
-        if 1 <= newCount && board.m[i][j] == 0 {
+        if 0 < newCount && board.m[i][j] == 0 {
           x = i
           y = j
+          // return (i, j)
         }
       }
     }
@@ -112,27 +120,29 @@ class SudokuSolver {
   }
 
   func makeMove(_ a: [Int], _ k: Int, _ board: inout BoardType) {
-    let pnt = board.move[k]
+    let (x, y) = board.move[k]
 
-    if board.m[pnt.x][pnt.y] == 0 {
+    if board.m[x][y] == 0 {
       board.freeCount -= 1
     }
 
-    board.m[pnt.x][pnt.y] = a[k]
+    board.m[x][y] = a[k]
   }
 
   func unmakeMove(_ a: [Int], _ k: Int, _ board: inout BoardType) {
-    let pnt = board.move[k]
+    let (x, y) = board.move[k]
 
-    if board.m[pnt.x][pnt.y] != 0 {
+    if board.m[x][y] != 0 {
       board.freeCount += 1
     }
 
-    board.m[pnt.x][pnt.y] = 0
+    board.m[x][y] = 0
   }
 
-  func constructCandidates(_ a: [Int], _ k: Int, _ board: inout BoardType) -> [Int] {
-    var c: [Int] = []
+  func constructCandidates(_ k: Int, _ board: inout BoardType) -> (Int, [Int]) {
+    // var c: [Int] = []
+    var c: [Int] = Array(repeating: 0, count: DIMENSION + 1)
+    var nCandidates = 0
 
     let (x, y) = nextSquare(board)
 
@@ -140,18 +150,26 @@ class SudokuSolver {
     board.move[k].y = y
 
     if (x < 0 && y < 0) {
-      return c
+      // return c
+      return (n: nCandidates, candidates: c)
     }
 
     let possible = possibleValues(x, y, board)
 
     for i in 1...DIMENSION {
+<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
       if possible[i] {
         c.append(i)
+=======
+      if possible[i] == true {
+        c[nCandidates] = i
+        nCandidates += 1
+        // c.append(i)
+>>>>>>> refactored
       }
     }
 
-    return c
+    return (n: nCandidates, candidates: c)
   }
 
   func backtrack(_ a: [Int], _ k: Int, board: inout BoardType) {
@@ -159,11 +177,12 @@ class SudokuSolver {
       processSolution(a, k, board)
     } else {
       let j = k + 1
-      var c = constructCandidates(a, j, &board)
+      // var candidates = constructCandidates(j, &board)
+      var (n, candidates) = constructCandidates(j, &board)
       var b = a
 
-      for i in 0..<c.count {
-        b[j] = c[i]
+      for i in 0..<n {
+        b[j] = candidates[i]
         makeMove(b, j, &board)
 
         backtrack(b, j, board: &board)
@@ -175,7 +194,11 @@ class SudokuSolver {
     }
   }
 
+<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
   func solve(for rows: [Array<Int>]) {
+=======
+  func solve(for rows: [Array<Int>]) -> [Array<Int>] {
+>>>>>>> refactored
     let a = Array(repeating: 0, count: NCELLS + 1)
     var board = BoardType(for: rows)
 
@@ -187,5 +210,7 @@ class SudokuSolver {
     backtrack(a, 0, board: &board)
 
     printT("It took \(steps) steps to find this solution")
+
+    return solution!.m
   }
 }
