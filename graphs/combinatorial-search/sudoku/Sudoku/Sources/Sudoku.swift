@@ -1,5 +1,3 @@
-public var TRUE: Int = 1
-public var FALSE: Int = 0
 public var BASED: Int = 3
 public var MAX_CANDIDATES: Int = 100
 public var NMAX: Int = 100
@@ -32,13 +30,15 @@ class SudokuSolver {
     self.solution = board
   }
 
-  func possibleValues(_ x: Int, _ y: Int, _ board: BoardType) -> [Int] {
-    // Grab possible candidates that remain for each
-    var possibilities = Array(repeating: FALSE, count: DIMENSION + 1)
-
+  func possibleValues(_ x: Int, _ y: Int, _ board: BoardType) -> [Bool] {
     let isSquareInvalid = (board.m[x][y] != 0 || (x < 0 || y < 0))
 
-    var initiate = isSquareInvalid ? FALSE : TRUE
+    var possibilities = Array(
+      repeating: false,
+      count: DIMENSION + 1
+    )
+
+    var initiate = isSquareInvalid ? false : true
 
     for i in 1...DIMENSION {
       possibilities[i] = initiate
@@ -49,11 +49,11 @@ class SudokuSolver {
       let cellInCol = board.m[i][y]
 
       if cellInRow != 0 {
-        possibilities[cellInRow] = FALSE
+        possibilities[cellInRow] = false
       }
 
       if cellInCol != 0 {
-        possibilities[cellInCol] = FALSE
+        possibilities[cellInCol] = false
       }
     }
 
@@ -65,7 +65,7 @@ class SudokuSolver {
       for j in yLow..<(yLow + BASED) {
         let cell = board.m[i][j]
         if cell != 0 {
-          possibilities[cell] = FALSE
+          possibilities[cell] = false
         }
       }
     }
@@ -75,7 +75,7 @@ class SudokuSolver {
 
   func possibleCount(_ x: Int, _ y: Int, _ board: BoardType) -> Int {
     // Return number of candidates, per square, that have not been used yet
-    return possibleValues(x, y, board).reduce(0, { $1 == TRUE ? $0 + 1 : $0 })
+    return possibleValues(x, y, board).reduce(0, { $1 ? $0 + 1 : $0 })
   }
 
   func nextSquare(_ board: BoardType) -> (Int, Int) {
@@ -146,7 +146,7 @@ class SudokuSolver {
     let possible = possibleValues(x, y, board)
 
     for i in 1...DIMENSION {
-      if possible[i] == TRUE {
+      if possible[i] {
         c.append(i)
       }
     }
@@ -176,7 +176,7 @@ class SudokuSolver {
   }
 
   func solve(for rows: [Array<Int>]) {
-    let a = Array(repeating: FALSE, count: NCELLS + 1)
+    let a = Array(repeating: 0, count: NCELLS + 1)
     var board = BoardType(for: rows)
 
     printBoard(board)
