@@ -33,15 +33,12 @@ class SudokuSolver {
   func possibleValues(_ x: Int, _ y: Int, _ board: BoardType) -> [Bool] {
     let isSquareInvalid = (board.m[x][y] != 0 || (x < 0 || y < 0))
 
-    var possibilities = Array(
-      repeating: false,
-      count: DIMENSION + 1
-    )
-
     var initiate = isSquareInvalid ? false : true
 
+    // TODO: THIS STEP SAVES PERFORMANCE BY ORDERS OF MAGNITUTDE THAN SIMPLY
+    // Array(repeating: isSquareInitialized ? false : true)
     for i in 1...DIMENSION {
-      possibilities[i] = initiate
+      possibilities[i] = initialize
     }
 
     // check for open cells in row and column
@@ -96,6 +93,9 @@ class SudokuSolver {
         let newCount = possibleCount(i, j, board)
 
         // If no possible candidates, and value is empty...set to false
+
+        //TODO: TAKES MORE STEPS WHEN EARLY RETURNING THAN IF SETTING VARS TO LAST INSTANCE
+        // LEADS TO CLOSER PROXIMITY BETWEEN ANSWERS?!?!
         if newCount == 0 && board.m[i][j] == 0 {
           shouldPrune = true
           // return (-1, -1)
@@ -105,7 +105,7 @@ class SudokuSolver {
         if 0 < newCount && board.m[i][j] == 0 {
           x = i
           y = j
-          // return (i, j)
+          //return (i, j)
         }
       }
     }
@@ -139,10 +139,8 @@ class SudokuSolver {
     board.m[x][y] = 0
   }
 
-  func constructCandidates(_ k: Int, _ board: inout BoardType) -> (Int, [Int]) {
-    // var c: [Int] = []
-    var c: [Int] = Array(repeating: 0, count: DIMENSION + 1)
-    var nCandidates = 0
+  func constructCandidates(_ k: Int, _ board: inout BoardType) -> [Int] {
+    var c: [Int] = []
 
     let (x, y) = nextSquare(board)
 
@@ -150,8 +148,7 @@ class SudokuSolver {
     board.move[k].y = y
 
     if (x < 0 && y < 0) {
-      // return c
-      return (n: nCandidates, candidates: c)
+      return c
     }
 
     let possible = possibleValues(x, y, board)
@@ -162,14 +159,18 @@ class SudokuSolver {
         c.append(i)
 =======
       if possible[i] == true {
+<<<<<<< 48507ea13ee54fcb9603fd9262fe68de4c734c8c
         c[nCandidates] = i
         nCandidates += 1
         // c.append(i)
 >>>>>>> refactored
+=======
+        c.append(i)
+>>>>>>> readjust to correct number of execution steps
       }
     }
 
-    return (n: nCandidates, candidates: c)
+    return c
   }
 
   func backtrack(_ a: [Int], _ k: Int, board: inout BoardType) {
@@ -177,11 +178,10 @@ class SudokuSolver {
       processSolution(a, k, board)
     } else {
       let j = k + 1
-      // var candidates = constructCandidates(j, &board)
-      var (n, candidates) = constructCandidates(j, &board)
+      var candidates = constructCandidates(j, &board)
       var b = a
 
-      for i in 0..<n {
+      for i in 0..<candidates.count {
         b[j] = candidates[i]
         makeMove(b, j, &board)
 

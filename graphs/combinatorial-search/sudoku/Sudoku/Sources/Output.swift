@@ -15,14 +15,14 @@ func printBoard(_ board: BoardType) {
         printT("\(cell)")
       }
 
-      if (j+1) % BASED == 0 {
+      if (j + 1) % BASED == 0 {
         printT("|")
       }
     }
     printT("\n")
 
     if (i + 1) % BASED == 0 {
-      for j in 0..<DIMENSION+BASED-1 {
+      for _ in 0..<DIMENSION+BASED-1 {
         printT("-")
       }
       printT("\n")
