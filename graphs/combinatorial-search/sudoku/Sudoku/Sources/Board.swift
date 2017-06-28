@@ -3,7 +3,7 @@ struct BoardType {
 
   var freeCount: Int = NCELLS
 
-  public var move: [(x: Int, y: Int)] = Array(
+  public var moves: [(x: Int, y: Int)] = Array(
     repeating: (x: 0, y: 0),
     count: NCELLS + 1
   )
