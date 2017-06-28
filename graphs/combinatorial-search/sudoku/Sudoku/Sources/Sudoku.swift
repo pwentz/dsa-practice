@@ -5,12 +5,8 @@ public var DIMENSION: Int { return BASED * BASED }
 public var NCELLS: Int { return DIMENSION * DIMENSION }
 
 class SudokuSolver {
-  typealias bool = Int
-
   private var steps: Int = 0
   private var finished: Bool = false
-
-  public var solution: BoardType?
 
   func isASolution(_ a: [Int], _ k: Int, _ board: BoardType) -> Bool {
     self.steps += 1
@@ -26,22 +22,21 @@ class SudokuSolver {
     self.finished = true
 
     printBoard(board)
-
-    self.solution = board
   }
 
   func possibleValues(_ x: Int, _ y: Int, _ board: BoardType) -> [Bool] {
-    let isSquareInvalid = (board.m[x][y] != 0 || (x < 0 || y < 0))
+    var possibilities = Array(repeating: false, count: DIMENSION + 1)
 
-    var initiate = isSquareInvalid ? false : true
+    let isSquareInvalid = board.m[x][y] != 0 || (x < 0 || y < 0)
 
-    // TODO: THIS STEP SAVES PERFORMANCE BY ORDERS OF MAGNITUTDE THAN SIMPLY
+    let initiate = isSquareInvalid ? false : true
+
+    // TODO: THIS STEP SAVES PERFORMANCE BY ORDERS OF MAGNITUDE THAN SIMPLY
     // Array(repeating: isSquareInitialized ? false : true)
     for i in 1...DIMENSION {
-      possibilities[i] = initialize
+      possibilities[i] = initiate
     }
 
-    // check for open cells in row and column
     for i in 0..<DIMENSION {
       let cellInRow = board.m[x][i]
       let cellInCol = board.m[i][y]
@@ -73,12 +68,7 @@ class SudokuSolver {
   }
 
   func possibleCount(_ x: Int, _ y: Int, _ board: BoardType) -> Int {
-    // Return number of candidates, per square, that have not been used yet
-<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
-    return possibleValues(x, y, board).reduce(0, { $1 ? $0 + 1 : $0 })
-=======
-    return possibleValues(x, y, board).reduce(0, { $1 == true ? $0 + 1 : $0 })
->>>>>>> refactored
+    return possibleValues(x, y, board).filter { $0 }.count
   }
 
   func nextSquare(_ board: BoardType) -> (Int, Int) {
@@ -111,7 +101,7 @@ class SudokuSolver {
     }
 
     // negative values (in constructCandidates) to be skipped
-    if shouldPrune == true {
+    if shouldPrune {
       x = -1
       y = -1
     }
@@ -154,19 +144,8 @@ class SudokuSolver {
     let possible = possibleValues(x, y, board)
 
     for i in 1...DIMENSION {
-<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
       if possible[i] {
         c.append(i)
-=======
-      if possible[i] == true {
-<<<<<<< 48507ea13ee54fcb9603fd9262fe68de4c734c8c
-        c[nCandidates] = i
-        nCandidates += 1
-        // c.append(i)
->>>>>>> refactored
-=======
-        c.append(i)
->>>>>>> readjust to correct number of execution steps
       }
     }
 
@@ -194,11 +173,7 @@ class SudokuSolver {
     }
   }
 
-<<<<<<< e15d8205d2e48aa9734dbf270a6cd63eaf0c1ba6
-  func solve(for rows: [Array<Int>]) {
-=======
   func solve(for rows: [Array<Int>]) -> [Array<Int>] {
->>>>>>> refactored
     let a = Array(repeating: 0, count: NCELLS + 1)
     var board = BoardType(for: rows)
 
@@ -211,6 +186,6 @@ class SudokuSolver {
 
     printT("It took \(steps) steps to find this solution")
 
-    return solution!.m
+    return board.m
   }
 }
