@@ -4,12 +4,16 @@ public var NCELLS: Int { return DIMENSION * DIMENSION }
 
 class SudokuSolver {
   private var finished = false
+  private var steps = 0
 
   func processSolution(_ a: [Int], _ k: Int, _ board: BoardType) {
+    printBoard(board)
+    print("This solution took \(steps) steps to complete")
     self.finished = true
   }
 
   func isASolution(_ a: [Int], _ k: Int, _ board: BoardType) -> Bool {
+    steps += 1
     return board.freeCount == 0
   }
 
@@ -17,10 +21,8 @@ class SudokuSolver {
     var possibilities = Array(repeating: false, count: DIMENSION + 1)
     let isSquareInvalid = board.m[x][y] != 0 || (x < 0 || y < 0)
 
-    let initiate = isSquareInvalid ? false : true
-
     for i in 1...DIMENSION {
-      possibilities[i] = initiate
+      possibilities[i] = isSquareInvalid ? false : true
     }
 
     for i in 0..<DIMENSION {
@@ -59,27 +61,21 @@ class SudokuSolver {
   func nextSquare(_ board: BoardType) -> (Int, Int) {
     var x = -1
     var y = -1
-    var shouldPrune = false
 
     for i in 0..<DIMENSION {
       for j in 0..<DIMENSION {
-        let nextCount = possibleCount(i, j, board)
+        let possibilitiesForSquare = possibleCount(i, j, board)
 
-        if nextCount == 0 && board.m[i][j] == 0 {
-          shouldPrune = true
+        if possibilitiesForSquare == 0 && board.m[i][j] == 0 {
+          return (-1, -1)
         }
 
-        if 0 < nextCount && board.m[i][j] == 0 {
+        if 0 < possibilitiesForSquare && board.m[i][j] == 0 {
           x = i
           y = j
         }
 
       }
-    }
-
-    if shouldPrune {
-      x = -1
-      y = -1
     }
 
     return (x, y)
@@ -90,8 +86,7 @@ class SudokuSolver {
 
     let (x, y) = nextSquare(board)
 
-    board.moves[k].x = x
-    board.moves[k].y = y
+    board.moves[k] = (x, y)
 
     if (x < 0 && y < 0) {
       return c
@@ -132,9 +127,9 @@ class SudokuSolver {
     if isASolution(a, k, board) {
       processSolution(a, k, board)
     } else {
-      var j = k + 1
+      let j = k + 1
       var b = a
-      var candidates = constructCandidates(a, k, &board)
+      var candidates = constructCandidates(a, j, &board)
 
       for i in 0..<candidates.count {
         b[j] = candidates[i]
@@ -152,6 +147,7 @@ class SudokuSolver {
 
   func solve(for rows: [Array<Int>]) -> [Array<Int>] {
     var board = BoardType(for: rows)
+    printBoard(board)
     let a = Array(repeating: 0, count: NCELLS + 1)
 
     backtrack(a, 0, &board)
