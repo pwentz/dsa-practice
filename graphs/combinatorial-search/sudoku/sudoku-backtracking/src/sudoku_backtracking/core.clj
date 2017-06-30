@@ -2,16 +2,16 @@
 
 (def ^:private based 3)
 (def ^:private dimension (* based based))
-(def ^:private n-cells (* dimension dimension))
+(def ^:private n-squares (* dimension dimension))
 
-(def ^:private repeat-vec (comp vec (partial repeat (inc n-cells))))
+(def ^:private n-squares-vec (comp vec (partial repeat (inc n-squares))))
 
 (def ^:private free? (partial zero?))
 (def ^:private taken? (complement free?))
 
 (def ^:private invalid-coords {:x -1 :y -1})
 
-(defn invalid? [x y]
+(defn- invalid? [x y]
   (or (neg? x) (neg? y)))
 
 (defn- free-count [board]
@@ -102,13 +102,12 @@
             (unmake-move j moves)))))))
 
 (defn solve [board]
-  (let [a (repeat-vec 0)]
-    (println "This board has" (free-count board) "open spaces")
-    (println "-----------------------")
-    (do
-      (reset! board-ref board)
-      (reset! finished false)
-      (reset! steps 0)
-      (backtrack a 0 @board-ref (repeat-vec invalid-coords)))
-    (println "Finished this sudoku in" @steps "steps")
-    @board-ref))
+  (println "This board has" (free-count board) "open spaces")
+  (println "-----------------------")
+  (do
+    (reset! board-ref board)
+    (reset! finished false)
+    (reset! steps 0)
+    (backtrack (n-squares-vec 0) 0 @board-ref (n-squares-vec invalid-coords)))
+  (println "Finished this sudoku in" @steps "steps")
+  @board-ref)
