@@ -18,15 +18,15 @@ class SubsetConstructor {
     return k == n
   }
 
-  private func constructCandidates() -> (n: Int, candidates: [Bool]) {
-    return (n: 2, candidates: [true, false])
+  private func constructCandidates() -> [Bool] {
+    return [true, false]
   }
 
   private func processSolution(_ a: [Bool], _ k: Int) {
     var newSolution: Set<Int> = []
 
     for i in 1...k {
-      if a[i] == true {
+      if a[i] {
         newSolution.insert(i)
       }
     }
@@ -35,12 +35,12 @@ class SubsetConstructor {
   }
 
   private func backtrack(_ a: inout [Bool], _ k: Int) {
-    let (n, candidates) = constructCandidates()
-
     if isASolution(a, k, input) {
       processSolution(a, k)
     } else {
-      for i in 0..<n {
+      let candidates = constructCandidates()
+
+      for i in 0..<candidates.count {
         a[k + 1] = candidates[i]
         backtrack(&a, k + 1)
       }

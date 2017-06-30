@@ -22,7 +22,7 @@ class SudokuSolver {
     let isSquareInvalid = board.m[x][y] != 0 || (x < 0 || y < 0)
 
     for i in 1...DIMENSION {
-      possibilities[i] = !isSquareInvalid
+      possibilities[i] = isSquareInvalid ? false : true
     }
 
     for i in 0..<DIMENSION {
@@ -86,11 +86,11 @@ class SudokuSolver {
 
     let (x, y) = nextSquare(board)
 
+    board.moves[k] = (x, y)
+
     if (x < 0 && y < 0) {
       return c
     }
-
-    board.moves[k] = (x, y)
 
     let possibilities = possibleValues(x, y, board)
 
@@ -119,7 +119,6 @@ class SudokuSolver {
     if board.m[x][y] != 0 {
       board.freeCount += 1
     }
-
 
     board.m[x][y] = 0
   }
