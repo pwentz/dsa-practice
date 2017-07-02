@@ -108,6 +108,7 @@
     (reset! board-ref board)
     (reset! finished false)
     (reset! steps 0)
-    (backtrack (n-squares-vec 0) 0 @board-ref (n-squares-vec invalid-coords)))
+    (time
+     (backtrack (n-squares-vec 0) 0 @board-ref (n-squares-vec invalid-coords))))
   (println "Finished this sudoku in" @steps "steps")
   @board-ref)

@@ -2,6 +2,11 @@
   (:require [speclj.core :refer :all]
             [sudoku-solver.core :as sut]))
 
+(defn get-time [f]
+  (let [full-out (with-out-str (time (eval (f))))
+        time-str (subs full-out (inc (.indexOf full-out ":")) (.indexOf full-out "msecs"))]
+    (/ (read-string time-str) 1000)))
+
 (def easy-board
   [[8 0 0 0 0 0 3 2 0]
    [0 7 0 3 0 4 9 6 8]

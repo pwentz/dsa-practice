@@ -35,5 +35,14 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
  - [dijkstra's](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
  - [floyd-warshall](https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm)
  - [backtracking](https://en.wikipedia.org/wiki/Backtracking)
+ - [fibonacci-number](https://en.wikipedia.org/wiki/Fibonacci_number)
+ - [binomial-coefficients](https://en.wikipedia.org/wiki/Binomial_coefficient)
+
+##### String Searching
+ - [brute force](https://en.wikipedia.org/wiki/Brute-force_search)
+ - [boyer-moore](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)
+ - [knuth-morris-pratt](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
+ - [rabin-karp](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm)
+ - [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
 More coming soon...
