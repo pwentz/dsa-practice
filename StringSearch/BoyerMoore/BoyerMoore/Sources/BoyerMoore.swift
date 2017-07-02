@@ -19,16 +19,14 @@ extension String {
   func indexOf(_ pattern: String) -> String.Index? {
     // Cache length of search pattern in order to reduce
     // expense of future calculations
-
     let patternLength = pattern.characters.count
 
+    // if substring is empty or less than original -> nil
     guard patternLength > 0, patternLength <= characters.count else {
       return nil
     }
 
-    // Make "skip" table to determine how far to skip ahead
-    // when character from pattern is found
-
+    // "skip" table to judge distance to skip ahead when character in pattern is found
     var skipTable: [Character: Int] = [:]
 
     for (i, c) in pattern.characters.enumerated() {

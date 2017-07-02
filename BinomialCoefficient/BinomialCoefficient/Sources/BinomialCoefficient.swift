@@ -17,3 +17,14 @@ func binomialCoefficient(_ n: Int, choose k: Int) -> Int {
 
   return bc[n][k]
 }
+
+func quickBinomialCoefficient(_ n: Int, choose k: Int) -> Int {
+  var result = 1
+
+  for i in 0..<k {
+    result *= (n - i)
+    result /= (i + 1)
+  }
+
+  return result
+}
