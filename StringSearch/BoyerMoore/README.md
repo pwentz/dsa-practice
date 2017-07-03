@@ -91,4 +91,22 @@ Hello, |World|!
        |World|
 ```
 
-When they match we just return our current index!
+When they match we just return our current index. If the comparing character is neither equal
+to the last element in our pattern nor present anywhere in the pattern (we can easily find this
+out in O[1] time by going into our steps dictionary), then we can just skip over all the elements
+lining up against our pattern:
+```
+The fox quickly jumped
+    ^
+puppy
+```
+
+So the next iteration would start like this
+
+```
+The fox quickly jumped
+         ^
+     puppy
+```
+
+And we would compare the last element in our pattern, `y`, with `u` and repeat the process over again.
