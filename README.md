@@ -41,8 +41,6 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
 ##### String Searching
  - [brute force](https://en.wikipedia.org/wiki/Brute-force_search)
  - [boyer-moore](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)
- - [knuth-morris-pratt](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
- - [rabin-karp](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm)
- - [longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+ - [z-algorithm](https://www.hackerearth.com/practice/algorithms/string-algorithm/z-algorithm/tutorial/)
 
 More coming soon...
