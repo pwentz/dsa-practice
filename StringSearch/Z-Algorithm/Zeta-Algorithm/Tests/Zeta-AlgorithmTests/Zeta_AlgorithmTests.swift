@@ -6,7 +6,14 @@ class Zeta_AlgorithmTests: XCTestCase {
     let a = "aabxaayaab"
     let z = [0, 1, 0, 0, 2, 1, 0, 3, 1, 0]
 
-    XCTAssertEqual(z, zetaAlgorithm(for: a))
+    XCTAssertEqual(z, zetaAlgorithm(for: a)!)
+  }
+
+  func testCanFormZArray1() {
+    let a = "abaxabab"
+    let z = [0, 0, 1, 0, 3, 0, 2, 0]
+
+    XCTAssertEqual(z, zetaAlgorithm(for: a)!)
   }
 
   func testCanHandleGivenArguments() {

@@ -1,6 +1,6 @@
 #### Z-Algorithm
 
-The Z-Algorithm is a string searching algorithm used to search for multiple occurences of a
+The Z-Algorithm is a liner-time complexity string searching algorithm used to search for multiple occurences of a
 pattern string inside a text string. Let's first start with the very basics of the algorithm and how it
 works.
 
@@ -111,3 +111,10 @@ the length of our pattern + 1 from them (the `+ 1` is to account for the separat
     }
   }
 ```
+
+##### Optimizations
+
+Although this is a clever algorithm, one can't help but notice that the current creation of our z-array
+contains some inefficiencies that prevent it from performing in linear time. For example, generating a
+z-array for a string `"aaaaaaaaaa"` takes quadratic time because you're comparing each character for
+each character. This is where the idea of a "z-box" can introduce powerful optimization techniques.
