@@ -118,3 +118,231 @@ Although this is a clever algorithm, one can't help but notice that the current 
 contains some inefficiencies that prevent it from performing in linear time. For example, generating a
 z-array for a string `"aaaaaaaaaa"` takes quadratic time because you're comparing each character for
 each character. This is where the idea of a "z-box" can introduce powerful optimization techniques.
+
+###### Steps:
+
+We first want to identify a `left` and a `right` to act as the left and right bounds of our z-box. We
+also need an array, which we'll call `zeta` and initialize with all `0`'s and have a length equal to the
+text string. Our main loop is an iteration over the values in our text string, starting with `1` since we
+disregard the first value.
+
+```
+0  1  2  3  4  5  6  7
+a  b  a  x  a  b  a  b
+0
+
+k - 1
+left, right - 0
+```
+
+The first thing we want to do is check to make sure that `k` is greater than `right`. This is because
+if `right` is greater than `k`, then that means we are operating out of a z-box and have processed this
+value before. Otherwise, we want to first set `right` and `left` equal to `k`. This is to indicate that
+we are not in any subsequence calculations, and therefore must compare our current character with the
+first character in the input string.
+
+```
+0   1   2  3  4  5  6  7
+a | b | a  x  a  b  a  b
+0
+
+k - 1
+left - 1
+right - 1
+```
+
+We then check to see the character at `k` (`b`) is equal to the first character in our subsequence (`a`, or
+`text[right - left]`). It's not, so we set the current position `k` equal to `right - left` (`0`), and
+we decrement `right` (WHY?) and finish up this iteration for `k = 1`.
+
+On this second go-round, `k = 2` and `right = 0`, so we again set `left` and `right` equal to `k` and
+evaluate `a` against the first char in our original sequence.
+
+```
+0  1   2  3  4  5  6  7
+a  b | a | x  a  b  a  b
+0  0   ^
+
+k - 2
+left - 2
+right - 2
+```
+
+Since `text[right]` is equal to `text[right - left]`, or `text[0]`, we want to increment `right` to extend
+the right bound of our temporary "z-box"
+
+```
+0  1   2  3   4  5  6  7
+a  b | a  x | a  b  a  b
+0  0   ^
+
+k - 2
+left - 2
+right - 3
+```
+
+Now when we compare `text[right]`, (`"x"`) against `text[right - left]`, (`"b"`), we can see that the two are
+not equal. So again we set our value at `k` equal to `right - left`. Because we're decrementing `right` again,
+we indicate that we have not evaluated `x` against `text[0]` yet. Here's what our next iteration looks like
+after we set `left` and `right` equal to `k`
+
+```
+0  1  2   3   4  5  6  7
+a  b  a | x | a  b  a  b
+0  0  1   ^
+
+k - 3
+left - 3
+right - 3
+```
+
+Similar to the steps when `k = 1`, `x` is not equal to `text[0]`, so we update `zeta[k]` with `0` and move on
+to the next value.
+
+```
+0  1  2  3   4   5  6  7
+a  b  a  x | a | b  a  b
+0  0  1  0   ^
+
+k - 4
+left - 4
+right - 4
+```
+
+Again we can see that `text[right]` is equal to `text[right - left]`, so we can increment `right` and run
+another comparison
+
+```
+0  1  2  3   4  5   6  7
+a  b  a  x | a  b | a  b
+0  0  1  0   ^
+
+k - 4
+left - 4
+right - 5
+```
+
+Comparing `text[right]`, or `text[5]`, against `text[right - left]`, or `text[1]`, we can see that the two
+are equal. So again we increment `right` to expand our subsequence comparison.
+
+```
+0  1  2  3   4  5  6   7
+a  b  a  x | a  b  a | b
+0  0  1  0   ^
+
+k - 4
+left - 4
+right - 6
+```
+
+Yet again we can see that `text[right]` is equal to `text[right - left]`, or `text[2]`. And again we increment
+`right` and keep comparing.
+
+```
+0  1  2  3   4  5  6  7
+a  b  a  x | a  b  a  b |
+0  0  1  0   ^
+
+k - 4
+left - 4
+right - 7
+```
+
+Since `text[right]`, or `b` is not equal to `text[right - left]`, or `x`, we can now update our `zeta` array
+at index `k` to equal `right - left`, and we decrement `right` again.
+
+```
+0  1  2  3   4  5  6   7
+a  b  a  x | a  b  a | b
+0  0  1  0   3  ^
+
+k - 5
+left - 4
+right - 6
+```
+
+This is where things get interesting, since `k < right`, we now take a different control flow path than the
+one we've been taking. With the way we have established these variables, we know that when `right` is greater
+than `k`, then we have evaluated this subsequence before. So we then want to find position `k1`, which is
+`k - left`, or the position corresponding value we have to compare against `text[k]`. Before we can just
+copy over the value from `text[k1]`, we have to make sure that this particular value doesn't indicate
+a subsequence that stretches _beyond_ our z-box. If `text[k1]` has a subsequence that could stretch outside
+of our z-box, then we cannot copy since we would have to then evaluate the new characters outside of our
+z-box to see if they are included in the subsequence as well.
+
+In this instance, `text[k1]` is equal to `0`, and thus we can copy over this value and end this current
+iteration.
+
+```
+0  1  2  3   4  5  6   7
+a  b  a  x | a  b  a | b
+0  0  1  0   3  0  ^
+
+k - 6
+left - 4
+right - 6
+```
+
+It looks like `k` is still not greater than `right`, so we check if `a` can be copied over by seeing
+if `zeta[k1]`, or `zeta[2]`, is less than `(right - k) + 1`. Since we had a subsequence length of 1
+at `k = 2` and we have no room left in our z-box, we can't copy over the values,
+so we have to reposition the left edge of our z-box so that `left = k`
+
+```
+0  1  2  3  4  5   6   7
+a  b  a  x  a  b | a | b
+0  0  1  0  3  0   ^
+
+k - 6
+left - 6
+right - 6
+```
+
+Similar to before, we now go through and see if `text[right]` is equal to `text[right - left]`, and
+increment `right` if that's the case.
+
+```
+0  1  2  3  4  5   6  7
+a  b  a  x  a  b | a  b |
+0  0  1  0  3  0   ^
+
+k - 6
+left - 6
+right - 7
+```
+
+And again, we can see that `text[right]` is equal to `text[right - left]`, so we can increment `right`
+again.
+
+```
+0  1  2  3  4  5   6  7
+a  b  a  x  a  b | a  b |
+0  0  1  0  3  0   ^
+
+k - 6
+left - 6
+right - 8
+```
+
+Since we're at the edge of our text string, we cannot increment `right` any more. So we set `zeta[k]`
+equal to `right - left` and decrement `right` before ending this iteration.
+
+```
+0  1  2  3  4  5   6  7
+a  b  a  x  a  b | a  b |
+0  0  1  0  3  0   2  ^
+
+k - 7
+left - 6
+right - 7
+```
+
+Again, we can see that `k > right`, so we can set `k1` equal to `k - left`, or `1`. And when we check to
+see the subsequence length at `zeta[1]`, we can see that it's `0`, meaning that we can simply copy over
+the value to finish up this algorithm.
+
+```
+0  1  2  3  4  5  6  7
+a  b  a  x  a  b  a  b
+0  0  1  0  3  0  2  0
+```

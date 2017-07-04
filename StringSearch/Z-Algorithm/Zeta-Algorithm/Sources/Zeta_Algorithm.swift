@@ -1,41 +1,4 @@
-// public func zetaAlgorithm(for text: String) -> [Int] {
-//   guard let firstTextChar = text.characters.first else {
-//     return []
-//   }
-
-//   var zeta: [Int] = [0]
-
-//   for (idx, char) in text.characters.enumerated() {
-//     guard idx > 0 else {
-//       continue
-//     }
-
-//     if char == firstTextChar {
-//       var score = 0
-
-//       var patternCompareIdx = text.index(text.startIndex, offsetBy: idx)
-//       var textCompareIdx = text.startIndex
-
-//       while patternCompareIdx < text.endIndex {
-//         guard text[textCompareIdx] == text[patternCompareIdx] else {
-//           break
-//         }
-
-//         score += 1
-//         patternCompareIdx = text.index(after: patternCompareIdx)
-//         textCompareIdx = text.index(after: textCompareIdx)
-//       }
-
-//       zeta.append(score)
-//     } else {
-//       zeta.append(0)
-//     }
-//   }
-
-//   return zeta
-// }
-
-func doesRightMatchPattern(_ text: String, _ right: Int, _ left: Int) -> Bool {
+private func doesRightMatchPattern(_ text: String, _ right: Int, _ left: Int) -> Bool {
   let textLength = text.characters.count
   let rightIdx = text.index(text.startIndex, offsetBy: right)
   let patternIdx = text.index(text.startIndex, offsetBy: right - left)
