@@ -14,6 +14,9 @@ public struct UnionFind<T: Hashable> {
       return nodeIdx
     }
 
+    // additional optimization that flattens the tree structure,
+    // so root parent is now direct parent and we don't have to traverse
+    // back up tree to parent of this specific node
     parents[nodeIdx] = getParent(of: parents[nodeIdx])
     return parents[nodeIdx]
   }
