@@ -42,5 +42,6 @@ The imperative solutions are heavily influenced from the [Swift Algorithms Club 
  - [brute force](https://en.wikipedia.org/wiki/Brute-force_search)
  - [boyer-moore](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)
  - [z-algorithm](https://www.hackerearth.com/practice/algorithms/string-algorithm/z-algorithm/tutorial/)
+ - [knuth morris pratt](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
 
 More coming soon...
