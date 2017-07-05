@@ -32,13 +32,6 @@
   (into {} (map vector (keys graph) (repeat #{}))))
 
 (defn kruskals
-  "Kruskal's algorithm for minimum spanning trees.
-    To start, sort edges by weight (asc)
-     1. Grab top element
-     2. Make sure vertices do not share root node of union-find sub-tree
-     3. Add edge to new tree
-     4. Unionize edge with correct union-find subtree
-     5. Repeat with next edge in sorted list."
   ([union-find [edge & more]]
    (let [[[vertices weight]] (seq edge)]
      (when edge

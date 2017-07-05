@@ -1,7 +1,8 @@
 ### Kruskal's Algorithm
 
-Kruskal's Algorithm constructs a minimum spanning tree by using a special data structure
-called union-find.
+Like Prim's, Kruskal's algorithm also constructs a minimum spanning tree given a graph. However,
+Kruskal's algorithm makes use of a unique data structure called union-find, making it the preferred
+algorithm for minimum spanning trees over Prim's.
 
 #### Union-Find
 
@@ -28,6 +29,10 @@ following properties:
 Although it looks simple, the union-find data structure is a useful way to keep track of the
 state of our minimum spanning tree as we build it. At each step of the way, we must make sure that
 the next edge we use doesn't introduce a path that we haven't already added to our sub tree.
+
+In Prim's algorithm, we were only building on the neighbors of the vertices that we had already
+marked as visited, but union-find allows us to introduce any new edge to our tree and be able
+to decide whether we still need any other given edge without the need for a `visited` variable
 
 #### Steps
 
