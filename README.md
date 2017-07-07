@@ -1,5 +1,12 @@
 ### Data Structures & Algorithms Practice
 
+#### Overview
+This repo is used as practice for learning the various data structures and algorithms that are out there.
+Each repo represents a different algorithm, with both an imperative/object-oriented implmentation in Swift,
+and a functional, (mostly) immutable implementation in Clojure.
+
+The imperative solutions are heavily influenced from the [Swift Algorithms Club repo](https://github.com/raywenderlich/swift-algorithm-club).
+
 #### Build Instructions
 ###### Swift
   - clone the repo
@@ -12,14 +19,6 @@
   - clone the repo
   - `cd` into any of the Clojure repos (kebab-cased dir names)
   - `lein spec` will run the tests
-
-#### Overview
-This repo is used as practice for learning the various data structures and algorithms that are out there.
-In order to really understand how these algorithms are implemented, I decided to first implement the
-algorithm in Swift using an imperative/object-oriented approach, then I implement the algorithm
-in Clojure using a functional, immutable appraoch.
-
-The imperative solutions are heavily influenced from the [Swift Algorithms Club repo](https://github.com/raywenderlich/swift-algorithm-club).
 
 #### Algorithms
  - [selection sort](https://en.wikipedia.org/wiki/Selection_sort)
