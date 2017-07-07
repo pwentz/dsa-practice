@@ -5,10 +5,11 @@
     (->> costs keys (sort-by costs) (remove visited?) first)))
 
 (defn build-shortest-path [graph parents start curr]
-  (let [node (parents curr)]
-    (if (= start node)
-      {#{node curr} ((graph node) curr)}
-      (merge {#{node curr} ((graph node) curr)} (build-shortest-path graph parents start node)))))
+  (let [parent (parents curr)
+        cost ((graph parent) curr)]
+    (if (= start parent)
+      {#{parent curr} cost}
+      (merge {#{parent curr} cost} (build-shortest-path graph parents start parent)))))
 
 (defn dijkstra
   "Dijkstra's shortest path algorithm for weighted undirected (or directed) graphs.

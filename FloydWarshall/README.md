@@ -5,7 +5,7 @@ path for all pairs in a weighted (directed or undirected) graph.
 
 Floyd-Warshall is similar to Dijkstra's algorithm, with a few key differences:
  - FW finds the shortest path for all pairs, Dijkstra finds shortest path between two given pairs
- - FW employs an adjacency matrix instead of an adjacency list, making the algorithm more
+ - FW employs an adjacency matrix instead of an adjacency list, potentially making the algorithm more
    efficient than running Dijsktra's for all pairs of vertices
  - FW can work with negative weight edges
 

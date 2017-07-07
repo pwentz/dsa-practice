@@ -2,6 +2,8 @@
   (:require [depth-first-search.graph :as g]))
 
 (defn depth-first-search
+  "Implementation uses an explicit stack to keep track of those
+   next to get visited."
   ([graph [curr & to-explore] explored]
    (if curr
      (if (true? (-> curr graph :visited))
