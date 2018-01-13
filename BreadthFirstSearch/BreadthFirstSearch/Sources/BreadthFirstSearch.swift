@@ -1,4 +1,4 @@
-public func breadthFirstSearch(source: Node, _ pred: ((_ src: Node) -> Bool)?) -> (Node?, [Node]) {
+public func breadthFirstSearch(source: Node, _ pred: ((Node) -> Bool)?) -> (Node?, [Node]) {
   var nodes: [Node] = [source]
   var nodesToSearch = Queue<Node>()
 
