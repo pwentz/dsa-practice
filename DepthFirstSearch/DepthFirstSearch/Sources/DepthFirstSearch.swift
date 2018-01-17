@@ -1,12 +1,21 @@
-public func depthFirstSearch(_ tree: Graph, source: Node) -> [String] {
-  var nodesExplored = [source.label]
+public func depthFirstSearch(source: Node, _ pred: ((_ src: Node) -> Bool)?) -> (Node?, [Node]) {
+  var nodesExplored: [Node] = [source]
   source.visited = true
 
-  for edge in source.edges {
-    if !edge.neighbor.visited {
-      nodesExplored.append(contentsOf: depthFirstSearch(tree, source: edge.neighbor))
+  if let isAMatch = pred, isAMatch(source) {
+    return (source, nodesExplored)
+  }
+
+  for neighbor in source.neighbors {
+    if !neighbor.visited {
+      var (node, nodesToExplore) = depthFirstSearch(source: neighbor, pred)
+      nodesExplored += nodesToExplore
+
+      if let matchingNode = node {
+        return (node, nodesExplored)
+      }
     }
   }
 
-  return nodesExplored
+  return (nil, nodesExplored)
 }

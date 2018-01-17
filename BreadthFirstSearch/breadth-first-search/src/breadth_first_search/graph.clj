@@ -1,7 +1,7 @@
 (ns breadth-first-search.graph)
 
 (defn mark-visited [graph source]
-  (assoc graph source (assoc (graph source) :visited true)))
+  (assoc-in graph [source :visited] true))
 
 (defn add-node [nodes label]
   (assoc nodes label {:neighbors []}))

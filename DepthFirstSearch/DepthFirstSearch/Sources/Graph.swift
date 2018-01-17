@@ -8,13 +8,13 @@ public class Edge {
 
 public class Node {
   public var visited: Bool
-  public var edges: [Edge]
+  public var neighbors: [Node]
   public var label: String
 
   init(label: String) {
     self.label = label
     visited = false
-    edges = []
+    neighbors = []
   }
 }
 
@@ -28,7 +28,6 @@ public class Graph {
   }
 
   public func addEdge(_ source: Node, neighbor: Node) {
-    let edge = Edge(neighbor)
-    source.edges.append(edge)
+    source.neighbors.append(neighbor)
   }
 }

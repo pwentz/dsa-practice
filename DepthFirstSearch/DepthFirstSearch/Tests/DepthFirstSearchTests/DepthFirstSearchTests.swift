@@ -81,33 +81,33 @@ class DepthFirstSearchTests: XCTestCase {
     return (graph, nodeA)
   }
 
-  // func testExploringTree() {
-  //   let setup = directedTreeSetup()
-  //   let tree = setup.0
-  //   let nodeA = setup.1
+  func testExploringTree() {
+    let setup = directedTreeSetup()
+    let tree = setup.0
+    let nodeA = setup.1
 
-  //   let nodesExplored = depthFirstSearch(tree, source: nodeA)
+    let (matchingNode, nodesExplored) = depthFirstSearch(source: nodeA, nil)
   //   // let nodeLabels = nodesExplored.map { $0.label }
 
-  //   XCTAssertEqual(nodesExplored, ["a", "b", "d", "e", "h", "f", "g", "c"])
-  // }
-
-  func testExploringGraph() {
-    let setup = undirectedGraphSetup()
-    let graph = setup.0
-    let nodeA = setup.1
-    let nodesExplored = depthFirstSearch(graph, source: nodeA)
-    // let nodeLabels = nodesExplored.map { $0.label }
-
-    XCTAssertEqual(nodesExplored, ["a", "b", "c", "d", "e", "f", "g", "h", "i"])
+    XCTAssertEqual(nodesExplored.map { node in node.label }, ["a", "b", "d", "e", "h", "f", "g", "c"])
   }
+
+  // func testExploringGraph() {
+  //   let setup = undirectedGraphSetup()
+  //   let graph = setup.0
+  //   let nodeA = setup.1
+  //   let (_, nodesExplored) = depthFirstSearch(source: nodeA, nil)
+  //   // let nodeLabels = nodesExplored.map { $0.label }
+
+  //   XCTAssertEqual(nodesExplored.map { $0.label }, ["a", "b", "c", "d", "e", "f", "g", "h", "i"])
+  // }
 
   // func testExploringGraphWithASingleNode() {
   //   let graph = Graph()
   //   let node = graph.addNode("a")
 
-  //   let nodesExplored = breadthFirstSearch(graph, source: node)
+  //   let nodesExplored = depthFirstSearch(source: node, nil).1
 
-  //   XCTAssertEqual(nodesExplored, ["a"])
+  //   XCTAssertEqual(nodesExplored.map { $0.label }, ["a"])
   // }
 }
